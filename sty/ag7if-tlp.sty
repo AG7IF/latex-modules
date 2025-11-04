@@ -1,0 +1,102 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tlp}
+
+\RequirePackage{xcolor}
+\RequirePackage{soul}
+\RequirePackage{tikz}
+\RequirePackage{geometry}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{etoolbox}
+\RequirePackage{suffix}
+\RequirePackage{etoolbox}
+\RequirePackage{xstring}
+\RequirePackage{xkeyval}
+
+\usetikzlibrary{calc}
+
+\DeclareOption{red}{%
+    \newcommand{\@LVL}{}
+    \newcommand{\@LVLRED}{}
+}
+
+\DeclareOption{amber-strict}{
+    \newcommand{\@LVL}{}
+    \newcommand{\@LVLAMBERSTRICT}{}
+}
+
+\DeclareOption{amber}{%
+    \newcommand{\@LVL}{}
+    \newcommand{\@LVLAMBER}{}
+}
+
+\DeclareOption{green}{%
+    \newcommand{\@LVL}{}
+    \newcommand{\@LVLGREEN}{}
+}
+
+\DeclareOption{clear}{%
+    \newcommand{\@LVL}{}
+    \newcommand{\@LVLCLEAR}{}
+}
+
+\DeclareOptionX{compartments}{\forcsvlist{\listadd\@COMPARTMENTS}{#1}}
+
+\ProcessOptionsX\relax
+
+\unless\ifdefined\@LVL
+    \newcommand{\@LVLCLEAR}{}
+\fi
+
+\definecolor{TRed}{RGB}{255,43,43}
+\definecolor{TAmber}{RGB}{255,192,0}
+\definecolor{TGreen}{RGB}{51,255,0}
+\definecolor{TClear}{RGB}{255,255,255}
+
+\newcommand{\@compartment}[1]{#1/}
+\DeclareRobustCommand{\CompartmentList}{%
+    \protect\StrGobbleRight{\forlistloop{\@compartment}{\@COMPARTMENTS}}{1}
+}
+
+\DeclareRobustCommand{\TLPRedList}{%
+    \ifdefined\@COMPARTMENTS
+        \sethlcolor{black}
+        \textcolor{TRed}{%
+            \hl{TLP:RED+\mbox{\CompartmentList}}
+        }
+    \else
+        \TLPRed{}
+    \fi
+}
+\DeclareRobustCommand{\TLPRed}[1]%
+    {\sethlcolor{black}\textcolor{TRed}
+    {\def\caveat{#1}\ifx\caveat\empty\hl{TLP:RED}\else\hl{TLP:RED//#1}\fi}}
+\DeclareRobustCommand{\TLPAmberStrict}{\sethlcolor{black}\textcolor{TAmber}{\hl{TLP:AMBER+STRICT}}}
+\DeclareRobustCommand{\TLPAmber}{\sethlcolor{black}\textcolor{TAmber}{\hl{TLP:AMBER}}}
+\DeclareRobustCommand{\TLPGreen}{\sethlcolor{black}\textcolor{TGreen}{\hl{TLP:GREEN}}}
+\DeclareRobustCommand{\TLPClear}{\sethlcolor{black}\textcolor{TClear}{\hl{TLP:CLEAR}}}
+\DeclareRobustCommand{\TLPLevel}{%
+    \ifdefined\@COMPARTMENTS
+        \TLPRedList{}
+    \else
+    \ifdefined\@LVLRED
+        \TLPRed{}
+    \else
+    \ifdefined\@LVLAMBERSTRICT
+        \TLPAmberStrict
+    \else
+    \ifdefined\@LVLAMBER
+        \TLPAmber
+    \else
+    \ifdefined\@LVLGREEN
+        \TLPGreen
+    \else
+    \ifdefined\@LVLCLEAR
+        \TLPClear
+    \fi
+    \fi
+    \fi
+    \fi
+    \fi
+    \fi
+}
+
