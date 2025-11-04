@@ -100,26 +100,26 @@
     \ifdefined\@MemoTlpLvlSet
         \def\@tlpMark{PLACEHOLDER}
     \fi
-    \RequirePackage{usafpub}
+    \RequirePackage{usaf-pub}
     \ifdefined\@MemoLvlVerySensitive
-        \RequirePackage[very-sensitive]{infosec}
+        \RequirePackage[very-sensitive]{ag7if-infosec}
     \else\ifdefined\@MemoLvlSensitive
-        \RequirePackage[sensitive]{infosec}
+        \RequirePackage[sensitive]{ag7if-infosec}
     \else\ifdefined\@MemoLvlSomewhatSensitive
-        \RequirePackage[somewhat-sensitive]{infosec}
+        \RequirePackage[somewhat-sensitive]{ag7if-infosec}
     \else\ifdefined\@MemoLvlNotSensitive
-        \RequirePackage[not-sensitive]{infosec}
+        \RequirePackage[not-sensitive]{ag7if-infosec}
     \fi\fi\fi\fi
     \ifdefined\@MemoTlpRed
-        \RequirePackage[red]{tlp}
+        \RequirePackage[tlp-red]{cert-tlp}
     \else\ifdefined\@MemoTlpAmberStrict
-        \RequirePackage[amber-strict]{tlp}
+        \RequirePackage[tlp-amber-strict]{cert-tlp}
     \else\ifdefined\@MemoTlpAmber
-        \RequirePackage[amber]{tlp}
+        \RequirePackage[tlp-amber]{cert-tlp}
     \else\ifdefined\@MemoTlpGreen
-        \RequirePackage[green]{tlp}
+        \RequirePackage[tlp-green]{cert-tlp}
     \else\ifdefined\@MemoTlpClear
-        \RequirePackage[clear]{tlp}
+        \RequirePackage[tlp-clear]{cert-tlp}
     \fi\fi\fi\fi\fi
     \def\@securityMark{\InfosecLevel}
     \ifdefined\@MemoTlpLvlSet

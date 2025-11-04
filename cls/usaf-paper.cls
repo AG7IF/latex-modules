@@ -53,6 +53,42 @@
 \DeclareOption{short}{%
     \newcommand{\@SHORT}{}
 }
+\DeclareOption{very-sensitive}{%
+    \newcommand{\@PaperInfosecLvlSet}{}
+    \newcommand{\@PaperLvlVerySensitive}{}
+}
+\DeclareOption{sensitive}{%
+    \newcommand{\@PaperInfosecLvlSet}{}
+    \newcommand{\@PaperLvlSensitive}{}
+}
+\DeclareOption{somewhat-sensitive}{%
+    \newcommand{\@PaperInfosecLvlSet}{}
+    \newcommand{\@PaperLvlSomewhatSensitive}{}
+}
+\DeclareOption{not-sensitive}{%
+    \newcommand{\@PaperInfosecLvlSet}{}
+    \newcommand{\@PaperLvlNotSensitive}{}
+}
+\DeclareOption{tlp-red}{%
+    \newcommand{\@PaperTlpLvlSet}{}
+    \newcommand{\@PaperTlpRed}{}
+}
+\DeclareOption{tlp-amber-strict}{%
+    \newcommand{\@PaperTlpLvlSet}{}
+    \newcommand{\@PaperTlpAmberStrict}{}
+}
+\DeclareOption{tlp-amber}{%
+    \newcommand{\@PaperTlpLvlSet}{}
+    \newcommand{\@PaperTlpAmber}{}
+}
+\DeclareOption{tlp-green}{%
+    \newcommand{\@PaperTlpLvlSet}{}
+    \newcommand{\@PaperTlpGreen}{}
+}
+\DeclareOption{tlp-clear}{%
+    \newcommand{\@PaperTlpLvlSet}{}
+    \newcommand{\@PaperTlpClear}{}
+}
 \ProcessOptions\relax
 
 \LoadClass[12pt]{article}
@@ -65,7 +101,39 @@
 \RequirePackage{enumitem}
 \RequirePackage{fancyhdr}
 \RequirePackage{titlesec}
-\RequirePackage{usaf-pub}
+\ifdefined\@PaperInfosecLvlSet
+    \def\@securityMark{PLACEHOLDER}
+    \ifdefined\@PaperTlpLvlSet
+        \def\@tlpMark{PLACEHOLDER}
+    \fi
+    \RequirePackage{usaf-pub}
+    \ifdefined\@PaperLvlVerySensitive
+        \RequirePackage[very-sensitive]{ag7if-infosec}
+    \else\ifdefined\@PaperLvlSensitive
+        \RequirePackage[sensitive]{ag7if-infosec}
+    \else\ifdefined\@PaperLvlSomewhatSensitive
+        \RequirePackage[somewhat-sensitive]{ag7if-infosec}
+    \else\ifdefined\@PaperLvlNotSensitive
+        \RequirePackage[not-sensitive]{ag7if-infosec}
+    \fi\fi\fi\fi
+    \ifdefined\@PaperTlpRed
+        \RequirePackage[tlp-red]{cert-tlp}
+    \else\ifdefined\@PaperTlpAmberStrict
+        \RequirePackage[tlp-amber-strict]{cert-tlp}
+    \else\ifdefined\@PaperTlpAmber
+        \RequirePackage[tlp-amber]{cert-tlp}
+    \else\ifdefined\@PaperTlpGreen
+        \RequirePackage[tlp-green]{cert-tlp}
+    \else\ifdefined\@PaperTlpClear
+        \RequirePackage[tlp-clear]{cert-tlp}
+    \fi\fi\fi\fi\fi
+    \def\@securityMark{\InfosecLevel}
+    \ifdefined\@PaperTlpLvlSet
+        \def\@tlpMark{\TLPLevel}
+    \fi
+\else
+    \RequirePackage{usaf-pub}
+\fi
 \ifdefined\DRAFT
     \RequirePackage{draftwatermark}
 \fi
@@ -88,17 +156,20 @@
 
 \fancypagestyle{firstpage}{%
     \fancyhf{}
-    \fancyfoot[L]{\IdentLine}
+    \ifdefined\@PaperInfosecLvlSet
+        \fancyfoot[L]{\raisebox{1.5em}{\IdentLine}}
+        \fancyhead[C]{\InfosecLevel}
+        \fancyfoot[C]{\InfosecLevel}
+        \ifdefined\@PaperTlpLvlSet
+            \fancyhead[R]{\TLPLevel}
+            \fancyfoot[R]{\TLPLevel}
+        \fi
+    \else
+        \fancyfoot[L]{\IdentLine}
+    \fi
 }
 
-\fancyhf{}
-\fancyhead[R]{\thepage}
-\ifdefined\FOUO
-    \fancyhead[C]{\FouoMark}
-    \fancyfoot[C]{\FouoMark}
-\fi
-
-\pagestyle{fancy}
+\pagestyle{usaf}
 
 \newcommand{\PaperTitle}{%
     \thispagestyle{firstpage}
