@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{tlp}
+\ProvidesPackage{cert-tlp}
 
 \RequirePackage{xcolor}
 \RequirePackage{soul}
@@ -14,27 +14,27 @@
 
 \usetikzlibrary{calc}
 
-\DeclareOption{red}{%
+\DeclareOptionX{tlp-red}{%
     \newcommand{\@LVL}{}
     \newcommand{\@LVLRED}{}
 }
 
-\DeclareOption{amber-strict}{
+\DeclareOptionX{tlp-amber-strict}{%
     \newcommand{\@LVL}{}
     \newcommand{\@LVLAMBERSTRICT}{}
 }
 
-\DeclareOption{amber}{%
+\DeclareOptionX{tlp-amber}{%
     \newcommand{\@LVL}{}
     \newcommand{\@LVLAMBER}{}
 }
 
-\DeclareOption{green}{%
+\DeclareOptionX{tlp-green}{%
     \newcommand{\@LVL}{}
     \newcommand{\@LVLGREEN}{}
 }
 
-\DeclareOption{clear}{%
+\DeclareOptionX{tlp-clear}{%
     \newcommand{\@LVL}{}
     \newcommand{\@LVLCLEAR}{}
 }
