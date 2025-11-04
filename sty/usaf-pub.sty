@@ -23,10 +23,31 @@
 
 \renewcommand{\headrulewidth}{0pt}
 
+\fancypagestyle{letterhead}{%
+    \fancyhf{}
+    \ifdefined\@CAP
+        \def\@seal{cap-seal}       
+        \fancyhead[C]{\CapLetterHead}
+        \LetterHeadSeal{}
+        \LetterHeadPatch{}
+    \else
+        \fancyhead[C]{\PlainLetterHead}
+        \LetterHeadSeal{}
+        \LetterHeadPatch{}
+    \fi
+    \ifdefined\@securityMark
+        \fancyfoot[C]{\@securityMark}
+    \fi
+    \ifdefined\@tlpMark
+        \fancyhead[R]{\raisebox{50pt}{\@tlpMark}}
+        \fancyfoot[R]{\@tlpMark}
+    \fi
+}
+
 \fancypagestyle{usaf}{%
     \fancyhf{}
     \ifdefined\@tlpMark
-        \fancyhead[R]{\@tlpMark~\thepage}
+        \fancyhead[R]{\@tlpMark\hspace{1em}\thepage}
         \fancyfoot[R]{\@tlpMark}
     \else
         \fancyhead[R]{\thepage}
@@ -105,26 +126,6 @@
             UNITED STATES AIR FORCE AUXILIARY\\
             \@address
         }
-    \fi
-}
-
-\fancypagestyle{letterhead}{%
-    \fancyhf{}
-    \ifdefined\@CAP
-        \def\@seal{cap-seal}       
-        \fancyhead[C]{\CapLetterHead}
-        \LetterHeadSeal{}
-        \LetterHeadPatch{}
-    \else
-        \fancyhead[C]{\PlainLetterHead}
-        \LetterHeadSeal{}
-        \LetterHeadPatch{}
-    \fi
-    \ifdefined\@securityMark
-        \fancyfoot[C]{\@securityMark}
-    \fi
-    \ifdefined\@tlpMark
-        \fancyfoot[R]{\@tlpMark}
     \fi
 }
 
