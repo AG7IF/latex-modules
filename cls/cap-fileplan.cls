@@ -1,14 +1,15 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cap-fileplan}
 
-\DeclareOption{DRAFT}{%
-    \newcommand{\DRAFT}{}
+\DeclareOption{draft}{%
+    \newcommand{\@draft}{}
 }
 
 \ProcessOptions\relax
 
 \LoadClass[12pt]{article}
 
+\RequirePackage{booktabs}
 \RequirePackage{fancyhdr}
 \RequirePackage[
     top=1.0in,
@@ -20,8 +21,8 @@
 \RequirePackage{lastpage}
 \RequirePackage{longtable}
 
-\ifdefined\DRAFT
-    \RequirePackage[scale=8]{draftwatermark}
+\ifdefined\@draft
+    \RequirePackage{draftwatermark}
 \fi
 
 \fancyhf{}
