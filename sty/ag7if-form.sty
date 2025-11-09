@@ -1,12 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{ag7ifform}
+\ProvidesPackage{ag7if-form}
 
 \RequirePackage{hyperref}
 
 \renewcommand{\LayoutTextField}[2]{#2}
 
 \newcommand{\FormCheckBox}[2]{%
-    \CheckBox[height=0.1in, width=0.15in, borderwidth=1pt, bordercolor={0 0 0}, backgroundcolor={}, name=#1]{#2}
+    \CheckBox[height=0.1in, width=0.15in, borderwidth=1pt, bordercolor={0 0 0}, backgroundcolor={}, name=#1]{}~#2
 }
 
 \newcommand{\FormTextBoxL}[3][0.15in]{%

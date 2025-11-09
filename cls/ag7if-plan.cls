@@ -164,10 +164,8 @@
 
 \LoadClass[12pt]{book}
 
-\RequirePackage[hidelinks]{hyperref}
 \RequirePackage{afterpage}
 \RequirePackage{booktabs}
-\RequirePackage{cleveref}
 \RequirePackage{emptypage}
 \RequirePackage{enumerate}
 \RequirePackage[
@@ -188,12 +186,12 @@
         \def\@tlpMark{PLACEHOLDER}
     \fi
 
-    \RequirePackage{usafpub}
-    \RequirePackage{infosec}
+    \RequirePackage{usaf-pub}
+    \RequirePackage{ag7if-infosec}
 
     \def\@securityMark{\InfosecLevel}
     \ifdefined\@PlanTlpLvlSet
-        \RequirePackage{tlp}
+        \RequirePackage{cert-tlp}
         \def\@tlpMark{\TLPLevel}
     \fi
 \else
@@ -218,9 +216,6 @@
 
 % Table of Contents Formatting
 \setcounter{tocdepth}{2}
-
-\Crefname{appendix}{Annex}{annexes}
-\crefname{appendix}{annex}{annexes}
 
 % Chapters
 \newif\if@appendix \@appendixfalse

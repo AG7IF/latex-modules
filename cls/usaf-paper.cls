@@ -5,11 +5,12 @@
 %
 % \documentclass[<draft>,<paper_type>]{usafpaper}
 %
+% \controlNumber{<CONTROL_NUMBER>} % Optional
 % \title{<TITLE>}
 % \date{<DATE>}
 % \author{<AUTHOR>}
 % \authorOffice{<OFFICE_SYMBOL>}
-% \authorPhone{<PHONE_NUMBER>}
+% \authorContact{<PHONE_NUMBER>}
 % \typist{<TYPIST_INITIALS>}
 %
 % \begin{document}
@@ -139,10 +140,11 @@
 \fi
 
 % Class Commmands
+\newcommand{\controlNumber}[1]{\def\@controlNumber{#1}}
 \newcommand{\authorOffice}[1]{\def\@authorOffice{#1}}
-\newcommand{\authorPhone}[1]{\def\@authorPhone{#1}}
+\newcommand{\authorContact}[1]{\def\@authorContact{#1}}
 \newcommand{\typist}[1]{\def\@typist{#1}}
-\newcommand{\IdentLine}{\@author/\@authorOffice/\@authorPhone/\@typist/\@date}
+\newcommand{\IdentLine}{\@author/\@authorOffice/\@authorContact/\@typist/\@date}
 
 % Formatting
 \titleformat{\section}{\normalfont\MakeUppercase}{\thesection}{0pt}{}
@@ -181,7 +183,11 @@
 
             \MakeUppercase{\@title}
         \else
-            \@papertype~PAPER\vspace{1em}
+            \ifdefined\@controlNumber
+                \@papertype~PAPER~\@controlNumber\vspace{1em}
+            \else
+                \@papertype~PAPER\vspace{1em}
+            \fi
 
             ON\vspace{1em}
 
