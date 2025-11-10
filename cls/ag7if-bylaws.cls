@@ -1,8 +1,8 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{ag7if-bylaws}
 
-\DeclareOption{DRAFT}{%
-    \newcommand{\DRAFT}{}
+\DeclareOption{draft}{%
+    \newcommand{\@draft}{}
 }
 
 \ProcessOptions\relax
@@ -14,8 +14,8 @@
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage{titlesec}
 
-\ifdefined\DRAFT
-    \RequirePackage[scale=8]{draftwatermark}
+\ifdefined\@draft
+    \RequirePackage{draftwatermark}
 \fi
 
 \setlength{\headheight}{15pt}
@@ -61,11 +61,15 @@
             \fi
             \par\vspace{1.5em}
             \normalsize
-            \ifdefined\@adopted
-                \ifx\@amended\empty
-                    Adopted~\@adopted
-                \else
-                    Adopted~\@adopted, Amended:~\@amended
+            \ifdefined\@draft
+                Adopted~DRAFT
+            \else
+                \ifdefined\@adopted
+                    \ifx\@amended\empty
+                        Adopted~\@adopted
+                    \else
+                        Adopted~\@adopted, Amended~\@amended
+                    \fi
                 \fi
             \fi
         }%
@@ -88,3 +92,4 @@
 
 % Enumerate setup
 \setlist[enumerate]{label*=(\alph*)}
+
