@@ -25,8 +25,9 @@
 \pagestyle{fancy}
 
 % Title
-\newcommand{\bylaws}[1]{%
-    \def\@bylaws{#1}
+\newcommand{\bylaws}[2][OF]{%
+    \def\@bylawsPreposition{#1}
+    \def\@bylaws{#2}
 }
 
 \newcommand{\society}[2][]{%
@@ -52,7 +53,11 @@
             \else
                 BYLAWS\par\vspace{1em}
             \fi
-            OF\par\vspace{1em}
+            \ifdefined\@bylawsPreposition
+                \MakeUppercase{\@bylawsPreposition}\par\vspace{1em}
+            \else
+                OF\par\vspace{1em}
+            \fi
             \ifx\@societyType\empty
                 \MakeUppercase{\@societyName}
             \else
@@ -92,4 +97,5 @@
 
 % Enumerate setup
 \setlist[enumerate]{label*=(\alph*)}
+
 
