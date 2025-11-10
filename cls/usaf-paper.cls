@@ -27,7 +27,7 @@
 % \end{document}
 
 \DeclareOption{draft}{%
-    \newcommand{\DRAFT}{}
+    \newcommand{\@draft}{}
 }
 \DeclareOption{fouo}{%
     \newcommand{\FOUO}{}
@@ -135,7 +135,7 @@
 \else
     \RequirePackage{usaf-pub}
 \fi
-\ifdefined\DRAFT
+\ifdefined\@draft
     \RequirePackage{draftwatermark}
 \fi
 
@@ -144,7 +144,13 @@
 \newcommand{\authorOffice}[1]{\def\@authorOffice{#1}}
 \newcommand{\authorContact}[1]{\def\@authorContact{#1}}
 \newcommand{\typist}[1]{\def\@typist{#1}}
-\newcommand{\IdentLine}{\@author/\@authorOffice/\@authorContact/\@typist/\@date}
+\newcommand{\IdentLine}{%
+    \ifdefined\@draft
+        \@author/\@authorOffice/\@authorContact/\@typist/DRAFT
+    \else
+        \@author/\@authorOffice/\@authorContact/\@typist/\@date
+    \fi
+}
 
 % Formatting
 \titleformat{\section}{\normalfont\MakeUppercase}{\thesection}{0pt}{}
@@ -199,3 +205,4 @@
 \renewcommand{\maketitle}{%
     \PaperTitle%
 }
+
