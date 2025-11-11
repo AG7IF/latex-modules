@@ -19,7 +19,7 @@
     headheight=15pt
 ]{geometry}
 \RequirePackage{lastpage}
-\RequirePackage{longtable}
+\RequirePackage{xltabular}
 
 \ifdefined\@draft
     \RequirePackage{draftwatermark}
@@ -28,15 +28,14 @@
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead[L]{\@title}
-\fancyhead[R]{Page\ \thepage\ of\ \pageref{LastPage}}
+\ifdefined\@draft
+    \fancyhead[R]{Date Prepared: DRAFT}
+\else
+    \fancyhead[R]{Date Prepared: \@date}
+\fi
 \fancyfoot[L]{Prepared by: \@author}
-\fancyfoot[R]{Date Prepared: \@date}
+\fancyfoot[R]{Page\ \thepage\ of\ \pageref{LastPage}}
 \pagestyle{fancy}
 
 \setlength{\parindent}{0pt}
 
-\newenvironment{fpTable}{%
-    \begin{longtable}{lp{6.25in}rr}
-}{%
-    \end{longtable}
-}
