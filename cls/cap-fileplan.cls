@@ -25,14 +25,24 @@
     \RequirePackage{draftwatermark}
 \fi
 
+\newcommand{\review}[1]{%
+    \def\@review{#1}
+}
+
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\fancyhead[L]{\@title}
 \ifdefined\@draft
-    \fancyhead[R]{Date Prepared: DRAFT}
+    \fancyhead[L]{Date Prepared: DRAFT}
 \else
-    \fancyhead[R]{Date Prepared: \@date}
+    \fancyhead[L]{Date Prepared: \@date}
 \fi
+\fancyhead[C]{\@title}
+\ifdefined\@draft
+    \fancyhead[R]{Next Review: DRAFT}
+\else
+    \fancyhead[R]{Next Review: \@review}
+\fi
+
 \fancyfoot[L]{Prepared by: \@author}
 \fancyfoot[R]{Page\ \thepage\ of\ \pageref{LastPage}}
 \pagestyle{fancy}
