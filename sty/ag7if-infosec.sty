@@ -299,8 +299,12 @@
     {\xblackout{#1}}
 }
 
-\DeclareRobustCommand{\SPortion}[1]{%
+\DeclareRobustCommand{\SePortion}[1]{%
     \textcolor{SColor}{(SE)}~\SRedact{#1}
+}
+
+\DeclareRobustCommand{\SPortion}[1]{%
+    \SePortion{#1}
 }
 
 \newcommand{\SParagraph}[3][]{%
