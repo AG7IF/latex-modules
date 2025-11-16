@@ -297,8 +297,9 @@
     \else\ifdefined\@SPLAN
         \def\@incidentType{Sprint}
         \def\@incidentName{#1}
-    \fi\fi
-    \def\@planNumber{#1}
+    \else
+        \def\@planNumber{#1}
+    \fi\fi\fi
 }
 
 \newcommand{\supplement}[1]{%
