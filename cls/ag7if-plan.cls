@@ -299,7 +299,7 @@
         \def\@incidentName{#1}
     \else
         \def\@planNumber{#1}
-    \fi\fi\fi
+    \fi\fi
 }
 
 \newcommand{\supplement}[1]{%
