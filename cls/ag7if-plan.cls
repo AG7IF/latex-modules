@@ -297,9 +297,8 @@
     \else\ifdefined\@SPLAN
         \def\@incidentType{Sprint}
         \def\@incidentName{#1}
-    \else
-        \def\@planNumber{#1}
     \fi\fi
+    \def\@planNumber{#1}
 }
 
 \newcommand{\supplement}[1]{%
@@ -312,14 +311,15 @@
 
 \newcommand{\incident}[2][incident]{%
     \ifdefined\@QPLAN
-        \ClassWarning{ag7ifplan}{incident name is ignored for QPLANs}
+        \ClassWarning{ag7if-plan}{incident name is ignored for QPLANs}
     \else\ifdefined\@SPLAN
-        \ClassWarning{ag7ifplan}{incident name is ignored for SPLANs}
+        \ClassWarning{ag7if-plan}{incident name is ignored for SPLANs}
     \else
         \ifdefined\@incidentType\else
             \def\@incidentType{#1}
         \fi
         \def\@incidentName{#2}%
+        \def\@incidentNameTitlePage{#2}%
     \fi\fi
 }
 
@@ -494,8 +494,8 @@
             \MakeUppercase{\@incidentType}~\@incidentNumber
         \fi
 
-        \ifdefined\@incidentName
-            \MakeUppercase{\@incidentName}
+        \ifdefined\@incidentNameTitlePage
+            \MakeUppercase{\@incidentNameTitlePage}
         \fi
         
         \vfill
