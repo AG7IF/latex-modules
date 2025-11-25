@@ -33,26 +33,28 @@
     \newcommand{\FOUO}{}
 }
 \DeclareOption{point}{%
-    \newcommand{\@papertype}{POINT}
+    \newcommand{\@papertype}{POINT PAPER}
 }
 \DeclareOption{talking}{%
-    \newcommand{\@papertype}{TALKING}
+    \newcommand{\@papertype}{TALKING PAPER}
 }
 \DeclareOption{background}{%
-    \newcommand{\@papertype}{BACKGROUND}
+    \newcommand{\@papertype}{BACKGROUND PAPER}
 }
 \DeclareOption{bullet-background}{%
-    \newcommand{\@papertype}{BULLET BACKGROUND}
+    \newcommand{\@papertype}{BULLET BACKGROUND PAPER}
 }
 \DeclareOption{position}{%
-    \newcommand{\@papertype}{POSITION}
+    \newcommand{\@papertype}{POSITION PAPER}
 }
 \DeclareOption{outline}{%
-    \newcommand{\OUTLINE}{}
     \newcommand{\@papertype}{OUTLINE}
 }
 \DeclareOption{short}{%
     \newcommand{\@SHORT}{}
+}
+\DeclareOption{minutes}{%
+    \newcommand{\@papertype}{MINUTES}
 }
 \DeclareOption{very-sensitive}{%
     \newcommand{\@PaperInfosecLvlSet}{}
@@ -140,6 +142,10 @@
 \fi
 
 % Class Commmands
+\renewcommand{\title}[2][ON]{%
+    \def\@titlePreposition{#1}
+    \def\@title{#2}
+}
 \newcommand{\controlNumber}[1]{\def\@controlNumber{#1}}
 \newcommand{\authorOffice}[1]{\def\@authorOffice{#1}}
 \newcommand{\authorContact}[1]{\def\@authorContact{#1}}
@@ -154,13 +160,13 @@
 
 % Formatting
 \titleformat{\section}{\normalfont\MakeUppercase}{\thesection}{0pt}{}
-\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\section}{0pt}{1em}{1em}
 
 \titleformat{\subsection}{\normalfont}{\thesubsection}{0pt}{\underline}
-\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{1em}{1em}
 
 \titleformat{\subsubsection}{\normalfont}{\thesubsubsection}{0pt}{\textit}
-\titlespacing{\subsubsection}{0pt}{0pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{1em}{1em}
 
 \fancypagestyle{firstpage}{%
     \fancyhf{}
@@ -182,23 +188,15 @@
 \newcommand{\PaperTitle}{%
     \thispagestyle{firstpage}
     \begin{center}
-        \ifdefined\OUTLINE
-            OUTLINE\vspace{1em}
-
-            FOR\vspace{1em}
-
-            \MakeUppercase{\@title}
+        \ifdefined\@controlNumber
+            \@papertype~\@controlNumber\vspace{1em}
         \else
-            \ifdefined\@controlNumber
-                \@papertype~PAPER~\@controlNumber\vspace{1em}
-            \else
-                \@papertype~PAPER\vspace{1em}
-            \fi
-
-            ON\vspace{1em}
-
-            \MakeUppercase{\@title}
+            \@papertype\vspace{1em}
         \fi
+
+        \MakeUppercase{\@titlePreposition}\vspace{1em}
+
+        \MakeUppercase{\@title}
     \end{center}
 }
 
