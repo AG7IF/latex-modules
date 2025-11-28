@@ -5,7 +5,8 @@
 
 
 \RequirePackage[colorlinks=true,allcolors=black,breaklinks=true]{hyperref}
-\def\description{}\RequirePackage[inline]{enumitem}
+\def\description{} % Hack to import enumitem AND let it redefine itemize on import
+\RequirePackage[inline]{enumitem}
 \RequirePackage[fixed]{fontawesome5}
 \RequirePackage[nohead,nofoot,hmargin=1in,vmargin=0.5in]{geometry}
 \RequirePackage{relsize}
