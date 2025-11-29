@@ -5,10 +5,6 @@
     \newcommand{\QUARTO}{}
 }
 
-\DeclareOption{t-card}{%
-    \def\@tcard{}
-}
-
 \DeclareOption{landscapeForm}{%
     \newcommand{\LSCAPE}{}
 }
@@ -19,16 +15,6 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{tabularx}
 \RequirePackage{ag7if-form}
-\ifdefined\@tcard
-    \RequirePackage[
-        paperheight=6.0in,
-        paperwidth=4.5in,
-        top=0.5in,
-        bottom=0.75in,
-        left=0.5in,
-        right=0.25in
-    ]{geometry}
-\else
 \ifdefined\QUARTO
     \ifdefined\LSCAPE
         \RequirePackage[
@@ -69,7 +55,7 @@
             right=0.5in
         ]{geometry}
     \fi
-\fi\fi
+\fi
 
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
@@ -128,15 +114,7 @@
     \rfoot{Rev.~\@revision}
 }
 
-\fancypagestyle{tcard}{%
-    \fancyhf{}
-}
-
-\ifdefined\@tcard
-    \pagestyle{tcard}
-\else
-    \pagestyle{numall}
-\fi
+\pagestyle{numall}
 
 \newcommand{\controlNumber}[1]{%
     \def\@controlNumber{#1}%
