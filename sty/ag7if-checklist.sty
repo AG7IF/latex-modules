@@ -1,0 +1,78 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ag7if-checklist}
+
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage[table]{xcolor}
+
+% List separators
+\newcommand{\ListSep}{\bottomrule\toprule}
+\newcommand{\ListSepBreak}{\bottomrule\pagebreak\toprule}
+\newcommand{\SublistSep}{\midrule}
+\newcommand{\SublistSepBreak}{\midrule\pagebreak\midrule}
+
+% Reference tables commands
+\newenvironment{refTable}
+    {\begin{longtable}{ll}\toprule}
+    {\bottomrule\end{longtable}}
+
+\newcommand{\RefCategory}[1]{%
+    \multicolumn{2}{l}{%
+        \large{\textbf{#1}}
+    }\addcontentsline{toc}{chapter}{#1}
+    \\
+    \midrule
+}
+\newcommand{\RefGroup}[1]{%
+    \multicolumn{2}{l}{%
+        \textbf{#1}
+    }\addcontentsline{toc}{section}{#1}
+    \\
+}
+\newcommand{\RefBoldEntry}[2]{\textbf{#1} & \textbf{#2}\addcontentsline{toc}{section}{#1: #2} \\}
+\newcommand{\RefEntry}[2]{#1 & #2 \\}
+\newcommand{\RefComment}[1]{\multicolumn{2}{l}{\textit{#1}}\\}
+
+% Control bank reference commands
+\newenvironment{controlBank}
+    {\begin{longtable}{rl}\toprule}
+    {\bottomrule\end{longtable}}
+
+\newcommand{\ControlGroup}[1]{%
+    \multicolumn{2}{l}{%
+        \large{\textbf{#1}}
+    }\addcontentsline{toc}{chapter}{#1}
+    \\
+    \midrule
+}
+\newcommand{\ControlBank}[1]{%
+    \multicolumn{2}{l}{%
+        \textbf{#1}
+    }\addcontentsline{toc}{section}{#1}
+    \\
+}
+\newcommand{\ControlEntry}[2]{#1 & #2 \\}
+
+% Checklist commands
+\newenvironment{checklist}
+    {\begin{longtable}{llr}\toprule}
+    {\bottomrule\end{longtable}}
+
+\newcommand{\Checklist}[1]{%
+    \multicolumn{3}{l}{%
+        \large{\textbf{#1}}
+    }\addcontentsline{toc}{chapter}{#1}
+    \\
+    \midrule
+}
+\newcommand{\Sublist}[1]{%
+    \multicolumn{3}{l}{%
+        \textbf{#1}
+    }\addcontentsline{toc}{section}{#1}
+    \\
+}
+\newcommand{\Step}[3]{#1 & \if\relax\detokenize{#2}\relax\else(#2)\fi & #3\\}
+\newcommand{\StepHL}[3]{\rowcolor{lightgray} #1 & \if\relax\detokenize{#2}\relax\else(#2)\fi & #3\\}
+\newcommand{\ChecklistComment}[1]{\multicolumn{3}{l}{\underline{\textit{#1}}}\\}
+\newcommand{\ChecklistCommentHL}[1]{\rowcolor{lightgray} \multicolumn{3}{l}{\underline{\textit{#1}}}\\}
+
