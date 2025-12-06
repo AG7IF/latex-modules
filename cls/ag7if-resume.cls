@@ -19,7 +19,6 @@
 \definecolor{Secondary}{HTML}{801300}
 
 % Header Setup
-
 \newcommand{\name}[1]{\def\@name{#1}}
 \newcommand{\tagLine}[1]{\def\@tagLine{#1}}
 
