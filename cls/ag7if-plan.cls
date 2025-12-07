@@ -19,7 +19,7 @@
 % \planNumber{<PLAN_NUMBER>}
 % \supplement{<SUPPLEMENT_ID>} % Optional
 % \incidentNumber{<INCIDENT_NUMBER>} % Optional
-% \incident[<INCIDENT_TYPE>]{<INCIDENT_NAME>} % Ignored by QPLANs and SPLANs
+% \incident[<INCIDENT_TYPE>]{<INCIDENT_NAME>} % Ignored by QPLANs and SPLANs, optional argument is ignored by CAMPLANs
 % \coverSeal%
 %   {<COVER_SEAL1_PATH>}%
 %   {<COVER_SEAL2_PATH>}%
@@ -315,9 +315,11 @@
     \else\ifdefined\@SPLAN
         \ClassWarning{ag7if-plan}{incident name is ignored for SPLANs}
     \else
-        \ifdefined\@incidentType\else
+        \ifdefined\@CAMPLAN
+            \def\@incidentType{campaign}
+        \else\ifdefined\@incidentType\else
             \def\@incidentType{#1}
-        \fi
+        \fi\fi
         \def\@incidentName{#2}%
         \def\@incidentNameTitlePage{#2}%
     \fi\fi
