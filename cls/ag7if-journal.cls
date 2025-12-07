@@ -4,114 +4,83 @@
 \DeclareOption{draft}{%
     \newcommand{\@draft}{}
 }
-\DeclareOption{very-sensitive}{%
-    \newcommand{\@PlanInfosecLvlSet}{}
-}
-\DeclareOption{sensitive}{%
-    \newcommand{\@PlanInfosecLvlSet}{}
-}
-\DeclareOption{somewhat-sensitive}{%
-    \newcommand{\@PlanInfosecLvlSet}{}
-}
-\DeclareOption{not-sensitive}{%
-    \newcommand{\@PlanInfosecLvlSet}{}
-}
-\DeclareOption{tlp-red}{%
-    \newcommand{\@PlanTlpLvlSet}{}
-    \newcommand{\@LVLRED}{}
-}
-\DeclareOption{tlp-amber-strict}{%
-    \newcommand{\@PlanTlpLvlSet}{}
-    \newcommand{\@LVLAMBERSTRICT}{}
-}
-\DeclareOption{tlp-amber}{%
-    \newcommand{\@PlanTlpLvlSet}{}
-    \newcommand{\@LVLAMBER}{}
-}
-\DeclareOption{tlp-green}{%
-    \newcommand{\@PlanTlpLvlSet}{}
-    \newcommand{\@LVLGREEN}{}
-}
-\DeclareOption{tlp-clear}{%
-    \newcommand{\@PlanTlpLvlSet}{}
-}
 
 \ProcessOptions\relax
 
-\LoadClass[12pt, paper=letter, BCOR=0in, DIV=calc]{scrbook}
+\LoadClass[12pt]{article}
 
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{booktabs}
 \RequirePackage{cleveref}
+\RequirePackage[
+    margin=1in,
+    headheight=15pt,
+    footskip=0.5in
+]{geometry}
 \RequirePackage{graphicx}
-\RequirePackage{nth}
 \RequirePackage{tabularx}
-\RequirePackage{scrlayer-scrpage}
-
-\clearpairofpagestyles
-\ifoot*{\pagemark}
-
-\ifdefined\@PlanInfosecLvlSet
-    \RequirePackage{infosec}
-
-    \chead*{\InfosecLevel}
-    \cfoot*{\InfosecLevel}
-
-    \def\@securityMark{\InfosecLevel}
-    \ifdefined\@PlanTlpLvlSet
-        \RequirePackage{tlp}
-        \ohead*{\TLPLevel}
-        \ofoot*{\TLPLevel}
-    \fi
-\fi
+\RequirePackage{usaf-pub}
 
 \ifdefined\@draft
     \RequirePackage{draftwatermark}
 \fi
 
-\newcounter{ind}
-\newenvironment{indorsements}{\setcounter{ind}{0}}{}
-\newcommand{\Indorsement}[3]{%
-    \stepcounter{ind}
-    \vspace{1em}
+\pagestyle{usaf}
 
-    \begin{tabularx}{\textwidth}{rX}
+% Titlepage Setup
+\newcommand{\volume}[1]{\def\@volume{#1}}
+\newcommand{\issue}[1]{\def\@issue{#1}}
+\newcommand{\society}[1]{\def\@society{#1}}
+\newcommand{\journal}[2][Journal of]{\def\@journal{#1~#2}}
+\newcommand{\coverSeal}[1]{\def\@coverSeal{#1}}
+\newcommand{\timePeriod}[1]{\def\@timePeriod{#1}}
+
+\renewcommand{\maketitle}{%
+    \thispagestyle{plain}
+    \begin{center}
+        \begin{tabularx}{\textwidth}{Xlrlrr}
         \toprule
-        \multicolumn{2}{c}{\textbf{\nth{\arabic{ind}} Indorsement}} \\
-        \textbf{Date}        & #1 \\
-        \textbf{Indorsement} & #3 \\
-        \textbf{Signed}      & #2 \\
+            \@society & Volume & \@volume & Number & \@issue & \@date \\
         \bottomrule
-    \end{tabularx}
-}
-
-\newcommand{\MFR}[5][]{%
-    \def\temp{#1}
-    \ifx\temp\empty%
-        \begin{tabularx}{\textwidth}{rX}
-            \toprule
-            \textbf{Sensitivity} & #2 \\
-            \textbf{Date}        & #3 \\
-            \textbf{Subject}     & #4 \\
-            \textbf{Signed}      & #5 \\
-            \bottomrule
         \end{tabularx}
-    \else
-        \begin{tabularx}{\textwidth}{rX}
-            \toprule
-            \textbf{MFR}         & #1 \\
-            \textbf{Sensitivity} & #2 \\
-            \textbf{Date}        & #3 \\
-            \textbf{Subject}     & #4 \\
-            \textbf{Signed}      & #5 \\
-            \bottomrule
-        \end{tabularx}
-    \fi
+
+        \vspace{1in}
+
+        \huge
+        \@journal%
+     
+        \vfill
+
+        \LARGE
+
+        Proceedings for~\@timePeriod%
+
+        \vspace{1in}
+
+        \includegraphics[height=4in]{\@coverSeal}
+
+        \vfill
+
+    \end{center}
+
+    \cleardoublepage   
+    
+    \tableofcontents
+    
+    \cleardoublepage
 }
 
-\newcommand{\MfrSection}[5]{%
-    \section{MFR~#1}\label{mfr:#1}
+% Define commands from usaf-memo and usaf-paper as NOOP for standalone operation
+%% Common
+\newcommand{\controlNumber}[1]{}
 
-    \MFR{#2}{#3}{#4}{#5}
-}
+%% usaf-memo
+\newcommand{\memofrom}[1]{}
+\newcommand{\subject}[1]{}
+
+%% usaf-paper
+\renewcommand{\title}[2][]{\def\@title{#2}}
+\newcommand{\authorOffice}[1]{}
+\newcommand{\authorContact}[1]{}
+\newcommand{\typist}[1]{}
 

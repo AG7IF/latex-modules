@@ -11,9 +11,11 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
 \RequirePackage{mathptmx}
+\RequirePackage{nth}
 \RequirePackage[absolute]{textpos}
 \RequirePackage{titlesec}
 \RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{xstring}
 
 % Page Formatting
 \raggedbottom
@@ -69,8 +71,6 @@
         \fancyfoot[C]{\@securityMark}
     \fi
 }
-
-\pagestyle{usaf}
 
 % Letterhead
 \newcommand{\LetterHeadSeal}{%
@@ -132,6 +132,35 @@
 % Signature Blocks
 \newlength{\sigoffset}
 \setlength{\sigoffset}{3.75in}
+
+% Indorsement Environment
+\newcommand{\fillinblank}[1][4em]{\makebox[#1]{\hrulefill}}
+\newcounter{indorsement}
+\newenvironment{indorsement}[7][reg]{%
+    \stepcounter{indorsement}
+    \def\@sigType{#1}
+    \def\@indName{#5}
+    \def\@indRank{#6}
+    \def\@indTitle{#7}
+    \vspace{2em}
+
+    \nth{\arabic{indorsement}} Ind, #2\hfill{}#3
+
+    MEMORANDUM FOR \MakeUppercase{#4}
+
+}{%
+
+    \IfEq{\@sigType}{text}{%
+        \textsign{\@indName}{\@indRank}{\@indTitle}
+    }{%
+        \ifx\@indRank\empty
+            \signature{\@indName}{}{\@indTitle}
+        \else
+            \signature{\@indName}{\@indRank}{\@indTitle}
+        \fi
+    }
+}
+
 
 % Paragraph numbering
 \setcounter{secnumdepth}{5}

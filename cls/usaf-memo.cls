@@ -154,34 +154,6 @@
     \ignorespacesafterend
 }
 
-% Environments
-%% Indorsement Format
-\newcounter{indorsement}
-\newenvironment{indorsement}[7][reg]{%
-\stepcounter{indorsement}
-\def\@sigType{#1}
-\def\@indName{#5}
-\def\@indRank{#6}
-\def\@indTitle{#7}
-\vspace{2em}
-
-\nth{\arabic{indorsement}} Ind, #2\hfill{}#3
-
-MEMORANDUM FOR \MakeUppercase{#4}
-
-}{%
-
-    \IfEq{\@sigType}{text}{%
-        \textsign{\@indName}{\@indRank}{\@indTitle}
-    }{%
-        \ifx\@indRank\empty
-            \signature{\@indName}{}{\@indTitle}
-        \else
-            \signature{\@indName}{\@indRank}{\@indTitle}
-        \fi
-    }
-}
-
 % Commands
 \newcommand{\controlNumber}[1]{%
     \def\@controlNumber{#1}
