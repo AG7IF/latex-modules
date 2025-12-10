@@ -14,7 +14,7 @@
 % % - fragord
 % % - splan
 % % - iap
-% \documentclass[<draft>,<cap>,<vhistory>,<plan_type>,<infosec>,<tlp>]{ag7ifplan}
+% \documentclass[<draft>,<cap>,<vhistory>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
 %
 % \planNumber{<PLAN_NUMBER>}
 % \supplement{<SUPPLEMENT_ID>} % Optional
@@ -228,35 +228,37 @@
         \if@mainmatter
             \thispagestyle{letterhead}
             
-            \vspace*{5ex}
+            \vspace*{0.75in}
             
             \theplan
 
             \ifdefined\@draft
+                \vspace{\baselineskip}
                 EFFECTIVE:~DRAFT
             \else
+                \vspace{\baselineskip}
                 EFFECTIVE:~\@effective
             \fi
             
             \ifdefined\@incidentNumber
+                \vspace{\baselineskip}
                 \MakeUppercase{\@incidentType}:~[\@incidentNumber]~\@incidentName
             \else
+                \vspace{\baselineskip}
                 \MakeUppercase{\@incidentType}:~\@incidentName
             \fi
 
-            \vspace*{2ex}
-
             \ifdefined\@references
+                \vspace{2\baselineskip}
                 \printbibliography[title={References}]
             \fi
-            
-            \vspace*{2ex}
         \fi
     \fi
 
     \stepcounter{chapter}%
-    {\normalfont\bfseries\Large\thechapter\quad#1}
-    \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+    \vspace{2\baselineskip}
+    {\normalfont\bfseries\Large\thechapter\quad#1}\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}#1}
+    \vspace{1\baselineskip}
 }
 
 \WithSuffix\newcommand\chapter*[1]{%

@@ -20,7 +20,7 @@
 % Page Formatting
 \raggedbottom
 
-\setlength{\parskip}{0.5em}
+\setlength{\parskip}{0pt}
 \setlength{\parindent}{0pt}
 
 \renewcommand{\headrulewidth}{0pt}
@@ -259,7 +259,7 @@
 }
 
 \newcommand{\signature}[3]{%
-    \vspace{4em}
+    \vspace{4\baselineskip}
     \sigblock{#1}{#2}{#3}
 }
 
@@ -268,21 +268,21 @@
 }
 
 \newcommand{\textsign}[3]{%
-    \vspace{2em}
+    \vspace{3\baselineskip}
     \hspace*{\sigoffset}\hspace{6ex}// SIGNED //\\
     \sigblock{#1}{#2}{#3}
 }
 
 \newcommand{\digisign}[4]{%
-    \vspace{2em}
-    \hspace{\sigoffset}\includegraphics[scale=0.2]{#4}\\
+    \vspace{2\baselineskip}
+    \hspace{\sigoffset}\includegraphics[height=2\baselineskip]{#4}\\
     \sigblock{#1}{#2}{#3}
 }
 
 %% Postscript
 \newcommand{\attachment}[1]{%
     \def\@ATTACHMENT{}
-    \vspace{2em}
+    \vspace{2\baselineskip}
     \noindent
     Attachment: \\
     #1
@@ -290,7 +290,7 @@
 
 \newcommand{\attachments}[1]{%
     \def\@ATTACHMENT{}
-    \vspace{2em}
+    \vspace{2\baselineskip}
     \noindent
     Attachments:
     \begin{enumerate}
@@ -301,9 +301,9 @@
 \newcommand{\cc}[1]{%
     \def\@CC{}
     \ifdefined\@ATTACHMENT
-        \vspace{2em}
+        \vspace{2\baselineskip}
     \else
-        \vspace{1em}
+        \vspace{2\baselineskip}
     \fi
 
     \noindent
@@ -313,11 +313,11 @@
 
 \newcommand{\distribution}[1]{%
     \ifdefined\@ATTACHMENT
-        \vspace{2em}
+        \vspace{2\baselineskip}
     \else\ifdefined\@CC
-        \vspace{2em}
+        \vspace{2\baselineskip}
     \else
-        \vspace{1em}
+        \vspace{1\baselineskip}
     \fi\fi
 
     \noindent

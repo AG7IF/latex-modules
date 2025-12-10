@@ -3,7 +3,7 @@
 
 % Document Setup:
 %
-% \documentclass[<DRAFT>,<cap>,<mr>,<fouo>]{usafmemo}
+% \documentclass[<draft>,<cap>,<mr>,<fouo>]{usaf-memo}
 %
 % \seal{<SEAL_PATH>} % Optional if using the <cap> document option
 % \unitPatch{<UNIT_PATCH_PATH>}
@@ -167,9 +167,9 @@
     \thispagestyle{letterhead}
 
     \ifdefined\@MemoInfosecLvlSet
-        \vspace*{0.5in}
+        \vspace*{0.75in}
     \else
-        \vspace*{0.25in}
+        \vspace*{0.5in}
     \fi
     \ifdefined\@controlNumber
         \hfill\@controlNumber
@@ -177,7 +177,7 @@
 
     \hfill\@date
 
-    \vspace*{1em}
+    \vspace{\baselineskip}
     MEMORANDUM FOR\hspace{0.25em}
     \ifdefined\@MFR
         RECORD
@@ -188,12 +188,14 @@
     \fi
 
     \ifdefined\@MFR\else
+        \vspace{\baselineskip}
         FROM:\hspace{0.25em}
         \begin{minipage}[t]{0.75\textwidth}
         \@memofrom
         \end{minipage}
     \fi
 
+    \vspace{\baselineskip}
     SUBJECT:~ \@subject
 }
 
