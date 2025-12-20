@@ -85,6 +85,13 @@
     \chead{\Large{\@title}}%
 }
 
+\fancypagestyle{nonum}{%
+    \fancyhf{}
+    \FormHeader%
+    \lfoot{\@controlNumber}
+    \rfoot{Rev.~\@revision}
+}
+
 \fancypagestyle{numall}{%
     \fancyhf{}
     \FormHeader%
