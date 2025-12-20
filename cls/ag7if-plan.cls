@@ -14,7 +14,7 @@
 % % - fragord
 % % - splan
 % % - iap
-% \documentclass[<draft>,<cap>,<vhistory>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
+% \documentclass[<draft>,<cap>,<vhistory>,<refs>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
 %
 % \planNumber{<PLAN_NUMBER>}
 % \supplement{<SUPPLEMENT_ID>} % Optional
@@ -225,7 +225,7 @@
 \renewcommand{\chapter}[1]{%
     \ifnum\c@chapter=0
         \cleardoublepage
-        \if@mainmatter
+        \if@appendix\else\if@mainmatter
             \thispagestyle{letterhead}
             
             \vspace*{0.75in}
@@ -252,7 +252,7 @@
                 \vspace{2\baselineskip}
                 \printbibliography[title={References}]
             \fi
-        \fi
+        \fi\fi
     \fi
 
     \stepcounter{chapter}%
