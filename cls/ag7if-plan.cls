@@ -214,6 +214,8 @@
 \pagestyle{usaf}
 \raggedbottom
 
+\setlength{\parskip}{0.5\baselineskip}
+
 % Table of Contents Formatting
 \setcounter{tocdepth}{2}
 
@@ -225,6 +227,7 @@
 \renewcommand{\chapter}[1]{%
     \ifnum\c@chapter=0
         \cleardoublepage
+        \setlength{\parskip}{0pt}
         \if@appendix\else\if@mainmatter
             \thispagestyle{letterhead}
             
@@ -254,6 +257,7 @@
             \fi
         \fi\fi
     \fi
+    \setlength{\parskip}{0.5\baselineskip}
 
     \stepcounter{chapter}%
     \vspace{2\baselineskip}
