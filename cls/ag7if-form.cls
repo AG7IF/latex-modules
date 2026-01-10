@@ -59,6 +59,7 @@
 
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
+\RequirePackage{xinttools}
 
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\headheight}{25pt}
@@ -129,4 +130,12 @@
 
 \newcommand{\revision}[1]{%
     \def\@revision{#1}%
+}
+
+\newcounter{row}
+
+\newcommand{\iterateRows}[2]{%
+    \xintFor* ##1 in {\xintSeq {1}{#1}}
+    \do
+    { \stepcounter{row}#2 }
 }

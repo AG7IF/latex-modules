@@ -45,6 +45,9 @@
 \DeclareOption{DRAFT}{%
     \newcommand{\@DRAFT}{}
 }
+\DeclareOption{letter}{%
+    \newcommand{\@LETTER}{}
+}
 \DeclareOption{mfr}{%
     \newcommand{\@MFR}{}
 }
@@ -163,6 +166,10 @@
     \def\@date{#1}
 }
 
+\newcommand{\salutation}[1]{%
+    \def\@salutation{#1}
+}
+
 \renewcommand{\maketitle}{%
     \thispagestyle{letterhead}
 
@@ -177,26 +184,40 @@
 
     \hfill\@date
 
-    \vspace{\baselineskip}
-    MEMORANDUM FOR\hspace{0.25em}
-    \ifdefined\@MFR
-        RECORD
-    \else
-        \begin{minipage}[t]{0.75\textwidth}
-        \MakeUppercase{\@memofor}
-        \end{minipage}
-    \fi
+    \ifdefined\@LETTER
+        \vspace{3\baselineskip}
+        \ifdefined\@memofrom
+            \@memofrom
+            \vspace{2\baselineskip}
+        \fi
+        \@memofor
 
-    \ifdefined\@MFR\else
         \vspace{\baselineskip}
-        FROM:\hspace{0.25em}
-        \begin{minipage}[t]{0.75\textwidth}
-        \@memofrom
-        \end{minipage}
-    \fi
+        \@salutation
 
-    \vspace{\baselineskip}
-    SUBJECT:~ \@subject
+        \vspace{\baselineskip}
+    \else
+        \vspace{\baselineskip}
+        MEMORANDUM FOR\hspace{0.25em}
+        \ifdefined\@MFR
+            RECORD
+        \else
+            \begin{minipage}[t]{0.75\textwidth}
+            \MakeUppercase{\@memofor}
+            \end{minipage}
+        \fi
+
+        \ifdefined\@MFR\else
+            \vspace{\baselineskip}
+            FROM:\hspace{0.25em}
+            \begin{minipage}[t]{0.75\textwidth}
+            \@memofrom
+            \end{minipage}
+        \fi
+
+        \vspace{\baselineskip}
+        SUBJECT:~ \@subject
+    \fi
 }
 
 \newcommand{\memofor}[1]{%
