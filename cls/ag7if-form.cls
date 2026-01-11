@@ -82,6 +82,31 @@
     \end{tabularx}
 }
 
+\newcommand{\ProjectHeader}{%
+    \begin{tabularx}{\textwidth}{|l|X|l|X|l|}
+        \hline
+            Domain:                                 &
+            Context:                                &
+            \multicolumn{2}{l|}{Project:}           &
+            Initiated:                              \\
+            \FormTextBoxL{0.8in}{domain}            &
+            \FormTextBoxL{2.0in}{context}           &
+            \FormTextBoxL{0.8in}{projID}            &
+            \FormTextBoxL{2.0in}{project}           &
+            \FormTextBoxR{0.85in}{initiated}        \\
+        \hline
+            \multicolumn{2}{|l|}{Campaign/Program:} &
+            \multicolumn{2}{l|}{Superproject:}      &
+            Disposed:                               \\ 
+            \FormTextBoxL{0.8in}{campID}            &
+            \FormTextBoxL{2.0in}{campaign}          &
+            \FormTextBoxL{0.8in}{superID}           &
+            \FormTextBoxL{2.0in}{superproject}      &
+            \FormTextBoxR{0.85in}{disposed}         \\
+         \hline
+    \end{tabularx}
+}
+
 \newcommand{\FormHeader}{%
     \chead{\Large{\@title}}%
 }
