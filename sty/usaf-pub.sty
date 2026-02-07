@@ -217,6 +217,13 @@
     \setlist[outline, 7]{label=(\roman*)}
 \fi
 
+\newlist{soutline}{enumerate}{5}
+\setlist[soutline, 1]{label=\arabic*.}
+\setlist[soutline, 2]{label=\alph*)}
+\setlist[soutline, 3]{label=(\arabic*)}
+\setlist[soutline, 4]{label=(\alph*)}
+\setlist[soutline, 5]{label=(\roman*)}
+
 
 \newenvironment{UsafMemo}{%
 	\begin{textblock*}{6.75in}(.75in,1.75in)

@@ -63,6 +63,7 @@
 
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\headheight}{25pt}
+\setlength{\parindent}{0pt}
 
 \newcommand{\IncidentHeader}{%
     \begin{tabularx}{\textwidth}{|p{2.1in}|X|}
@@ -141,7 +142,7 @@
     \FormHeader%
     \lfoot{%
         \begin{Form}
-        \@controlNumber, Page~\FormTextBoxU{0.2in}{pg}~of~\FormTextBoxU{0.2in}{totalpgs}
+        \@controlNumber, Page~\FormTextBoxU{0.2in}{pg\thepage}~of~\FormTextBoxU{0.2in}{totalpgs}
         \end{Form}
     }
     \rfoot{Rev.~\@revision}
