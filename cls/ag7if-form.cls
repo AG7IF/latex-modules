@@ -96,8 +96,8 @@
             \FormTextBoxL{2.0in}{project}           &
             \FormTextBoxR{0.85in}{initiated}        \\
         \hline
-            \multicolumn{2}{|l|}{Campaign/Program:} &
-            \multicolumn{2}{l|}{Superproject:}      &
+            \multicolumn{2}{|l|}{Campaign:} &
+            \multicolumn{2}{l|}{Program/Superproject:} &
             Disposed:                               \\ 
             \FormTextBoxL{0.8in}{campID}            &
             \FormTextBoxL{2.0in}{campaign}          &
