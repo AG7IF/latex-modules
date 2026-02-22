@@ -165,3 +165,9 @@
     \do
     { \stepcounter{row}#2 }
 }
+
+\newcommand{\forEachRow}[2]{%
+    \xintFor* ##1 in {#1}
+    \do
+    { \stepcounter{row}#2 }
+}
