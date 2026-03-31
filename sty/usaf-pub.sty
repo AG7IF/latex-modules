@@ -6,7 +6,9 @@
 }
 \ProcessOptions\relax
 
+\RequirePackage{amssymb}
 \RequirePackage{enumitem}
+\RequirePackage{etoolbox}
 \RequirePackage{fancyhdr}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{graphicx}
@@ -41,7 +43,7 @@
         \fancyfoot[C]{\@securityMark}
     \fi
     \ifdefined\@tlpMark
-        \fancyhead[R]{\raisebox{50pt}{\@tlpMark}}
+        \fancyhead[R]{\raisesquare{50pt}{\@tlpMark}}
         \fancyfoot[R]{\@tlpMark}
     \fi
 }
@@ -142,12 +144,16 @@
     \def\@indName{#5}
     \def\@indRank{#6}
     \def\@indTitle{#7}
-    \vspace{2em}
+    
+    \vspace{2\baselineskip}
 
     \nth{\arabic{indorsement}} Ind, #2\hfill{}#3
 
+    \vspace{\baselineskip}
+
     MEMORANDUM FOR \MakeUppercase{#4}
 
+    \vspace{\baselineskip}
 }{%
 
     \IfEq{\@sigType}{text}{%
@@ -266,7 +272,7 @@
 }
 
 \newcommand{\signature}[3]{%
-    \vspace{4\baselineskip}
+    \vspace*{4\baselineskip}
     \sigblock{#1}{#2}{#3}
 }
 
@@ -275,13 +281,13 @@
 }
 
 \newcommand{\textsign}[3]{%
-    \vspace{3\baselineskip}
+    \vspace*{3\baselineskip}
     \hspace*{\sigoffset}\hspace{6ex}// SIGNED //\\
     \sigblock{#1}{#2}{#3}
 }
 
 \newcommand{\digisign}[4]{%
-    \vspace{2\baselineskip}
+    \vspace*{2\baselineskip}
     \hspace{\sigoffset}\includegraphics[height=2\baselineskip]{#4}\\
     \sigblock{#1}{#2}{#3}
 }
@@ -333,12 +339,25 @@
 }
 
 %% Other Commands
+\newcommand{\checkboxUnchecked}{%
+    $\square$
+}
+
+\newcommand{\checkBoxChecked}{%
+    \makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}
+}
+
+
+\newcommand{\clitem}[1]{%
+    \item \ifstrequal{#1}{done}{\checkBoxChecked}{\checkboxUnchecked}
+}
+
 \newcommand{\ptitle}[1]{%
     \paragraph{#1}\hfill
 }
 
 \newcommand{\titem}[1]{%
-    \item \underline{#1}
+    \item~\underline{#1}
 }
 
 \newcommand{\tVsItem}[2]{%

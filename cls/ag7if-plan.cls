@@ -14,7 +14,8 @@
 % % - fragord
 % % - splan
 % % - iap
-% \documentclass[<draft>,<cap>,<vhistory>,<refs>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
+% % - progchart
+% \documentclass[<draft>,<cap>,<vhistory>,<refs>,<ind>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
 %
 % \planNumber{<PLAN_NUMBER>}
 % \supplement{<SUPPLEMENT_ID>} % Optional
@@ -31,17 +32,30 @@
 % \commander[<TITLE>]{<NAME>}{<CONTACT>} % Not used by SPLAN or FRAGORD
 % \sponsor{<SPONSORING_ORG_AND_UNIT>} % Optional
 %
+%% If the ind option is selected, the following additional 
+%% parameters need to be included:
+% \submitter{<SUBMITTER_NAME>}
+% \submitterOffice{<SUBMITTER_OFFICE>}
+% \recorder{<RECORDER_NAME>}
+% \recorderOffice{<RECORDER_OFFICE>}
+% \authority{<INDORSEMENT_AUTHORITY>}
+%
 % \seal{<SEAL_PATH>} % Optional if using the <cap> document option
 % \unitPatch{<UNIT_PATCH_PATH>} % Optional
 % \unitName{<UNIT>}
 % \address{<UNIT ADDRESS> \\ <CITY>, <STATE> <ZIP>}
 %
+%% Add the following to create an approval chain.
 % \actionOfficer{<NAME>}{<OFFICE_SYMBOL>}{<CONTACT>}
 % \draftDate{<DRAFT_DATE>}
 % \suspense{<SUSPENSE>}
+% \staffSummary{<SUMMARY_OF_DOCUMENT>}
 % \staffCoord{<TO>,<ACTION>,<OUTCOME>,<DATE>}
 % \staffCoord{<TO>,<ACTION>,<OUTCOME>,<DATE>}
 % \staffCoord{<TO>,<ACTION>,<OUTCOME>,<DATE>}
+%
+%% If you want to include an Executive Summary:
+% \newcommand{\ExecutiveSummary}{<EXECUTIVE_SUMMARY>}
 %
 % If vhistory option is selected, define the \vhistory command as follows
 % (recommend putting this in a separate file and \input'ing it in the preamble):
@@ -53,6 +67,7 @@
 %     \vhEntry{<VERSION>}{<DATE>}{<AUTHOR_INITIALS>}{Initial draft}
 % \end{versionhistory}
 % }
+%
 %
 % \begin{document}
 % \maketitle
@@ -111,8 +126,14 @@
 \DeclareOption{iap}{%
     \newcommand{\@IAP}{}
 }
+\DeclareOption{progchart}{%
+    \newcommand{\@PROGCHART}{}
+}
 \DeclareOption{vhistory}{%
     \newcommand{\vhistory}{}
+}
+\DeclareOption{ind}{%
+    \newcommand{\@indorsements}{}
 }
 \DeclareOption{refs}{%
     \newcommand{\@references}{}
@@ -156,9 +177,10 @@
 \else\ifdefined\@FRAGORD
 \else\ifdefined\@SPLAN
 \else\ifdefined\@IAP
+\else\ifdefined\@PROGCHART
 \else
-    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, or iap option}
-\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, iap, or progchart option}
+\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 
 % TODO: Warn/error on multiple plan types
 
@@ -249,11 +271,6 @@
             \else
                 \vspace{\baselineskip}
                 \MakeUppercase{\@incidentType}:~\@incidentName
-            \fi
-
-            \ifdefined\@references
-                \vspace{2\baselineskip}
-                \printbibliography[title={References}]
             \fi
         \fi\fi
     \fi
@@ -361,6 +378,32 @@
     \def\@draftDate{#1}
 }
 
+\newcommand{\submitter}[1]{%
+    \def\@submitter{#1}
+}
+
+\newcommand{\submitterOffice}[1]{%
+    \def\@submitterOffice{#1}
+}
+
+\newcommand{\recorder}[1]{%
+    \def\@recorder{#1}
+}
+
+\newcommand{\recorderOffice}[1]{%
+    \def\@recorderOffice{#1}
+}
+
+\newcommand{\authority}[1]{%
+    \def\@authority{#1}
+}
+
+\newcommand{\certified}[2][ADOPTED]{%
+    \def\@certifiedOutcome{#1}
+    \def\@certifiedDate{#2}
+}
+
+
 \newcommand\staffCoord[1]{%
     \ifdefined\@coordChain\else\def\@coordChain{}\fi
     \g@addto@macro\@coordChain{\hline\@gobble}%
@@ -424,7 +467,9 @@
         SPLAN
     \else\ifdefined\@IAP
         IAP
-    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \else\ifdefined\@PROGCHART
+        PROGCHART
+    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 
 \newcommand{\planTypeFull}{%1
@@ -448,7 +493,9 @@
         SPRINT PLAN
     \else\ifdefined\@IAP
         INCIDENT ACTION PLAN
-    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \else\ifdefined\@PROGCHART
+        PROGRAM CHARTER
+    \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 
 \newcommand{\theplan}{%
@@ -611,4 +658,48 @@
     \else
         \@FullTitle%
     \fi\fi
+}
+
+\AtEndDocument{%
+\clearpage
+
+\ifdefined\@indorsements
+    \section*{Indorsements}
+
+    \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
+
+        \ifdefined\vhistory
+            Resolved, that version \vhCurrentVersion\ of \theplan\ be adopted IAW\ \@authority.
+        \else
+            Resolved, that the foregoing draft of\ \theplan\ be adopted IAW\ \@authority.
+        \fi
+
+    \end{indorsement}
+
+    \ifdefined\@certifiedDate
+        \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
+
+            \ifdefined\vhistory
+                Version \vhCurrentVersion\ of \theplan\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
+            \else
+                The foregoing draft of \theplan\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
+            \fi
+        
+        \end{indorsement}
+    \else
+        \begin{indorsement}{\@recorderOffice}{\fillinblank}{RECORD}{\@recorder}{}{\@recorderOffice}
+
+            \ifdefined\vhistory
+                Version \vhCurrentVersion\ of \theplan\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+            \else
+                The foregoing draft of \theplan\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+            \fi
+
+        \end{indorsement}
+    \fi
+\fi
+
+\ifdefined\@references
+    \printbibliography[title={References}]
+\fi
 }

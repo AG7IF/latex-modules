@@ -18,14 +18,14 @@
 % \maketitle
 % \end{document}
 
-\DeclareOption{DRAFT}{%
+\DeclareOption{draft}{%
     \newcommand{\@DRAFT}{}
 }
-\DeclareOption{letter}{%
-    \newcommand{\@LETTER}{}
+\DeclareOption{refs}{%
+    \newcommand{\@references}{}
 }
-\DeclareOption{mfr}{%
-    \newcommand{\@MFR}{}
+\DeclareOption{vhistory}{%
+    \newcommand{\vhistory}{}
 }
 \DeclareOption{very-sensitive}{%
     \newcommand{\@MemoInfosecLvlSet}{}
@@ -68,12 +68,15 @@
 \LoadClass[12pt]{article}
 
 \RequirePackage{enumerate}
+
 \RequirePackage[
     margin=1in,
     headheight=15pt,
     footskip=0.5in
 ]{geometry}
+
 \RequirePackage{nth}
+
 \ifdefined\@MemoInfosecLvlSet
     \def\@securityMark{PLACEHOLDER}
     \ifdefined\@MemoTlpLvlSet
@@ -107,7 +110,18 @@
 \else
     \RequirePackage{usaf-pub}
 \fi
+
+\ifdefined\@references
+    \RequirePackage[notes,backend=biber]{biblatex-chicago}
+    \addbibresource{references.bib}
+\fi
+
+\ifdefined\vhistory
+    \RequirePackage[nochapter,tablegrid]{vhistory}
+\fi
+
 \RequirePackage{xstring}
+
 \ifdefined\@DRAFT
     \RequirePackage{draftwatermark}
 \fi
@@ -124,6 +138,31 @@
     \def\@controlNumber{#1}
 }
 
+\newcommand{\submitter}[1]{%
+    \def\@submitter{#1}
+}
+
+\newcommand{\submitterOffice}[1]{%
+    \def\@submitterOffice{#1}
+}
+
+\newcommand{\recorder}[1]{%
+    \def\@recorder{#1}
+}
+
+\newcommand{\recorderOffice}[1]{%
+    \def\@recorderOffice{#1}
+}
+
+\newcommand{\authority}[1]{%
+    \def\@authority{#1}
+}
+
+\newcommand{\certified}[2][ADOPTED]{%
+    \def\@certifiedOutcome{#1}
+    \def\@certifiedDate{#2}
+}
+
 \renewcommand{\date}[1]{%
     \def\@date{#1}
 }
@@ -137,9 +176,11 @@
         \vspace*{0.5in}
     \fi
 
-    %\hfill\@controlNumber
-
-    \hfill\@date
+    \ifdefined\vhistory
+        \hfill\vhCurrentDate
+    \else
+        \hfill\@date
+    \fi
 
     \vspace{\baselineskip}
     {\large\textbf{\@controlNumber}}
@@ -149,4 +190,52 @@
     {\Large\textbf{\@title}}
 
     \vspace{2\baselineskip}
+}
+
+\AtEndDocument{%
+\clearpage
+
+\section*{Indorsements}
+
+\begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
+
+    \ifdefined\vhistory
+        Resolved, that version \vhCurrentVersion\ of \@controlNumber\ be adopted IAW\ \@authority.
+    \else
+        Resolved, that the foregoing draft of\ \@controlNumber\ be adopted IAW\ \@authority.
+    \fi
+
+\end{indorsement}
+
+\ifdefined\@certifiedDate
+    \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
+
+        \ifdefined\vhistory
+            Version \vhCurrentVersion\ of \@controlNumber\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
+        \else
+            The foregoing draft of \@controlNumber\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
+        \fi
+    
+    \end{indorsement}
+\else
+    \begin{indorsement}{\@recorderOffice}{\fillinblank}{RECORD}{\@recorder}{}{\@recorderOffice}
+
+        \ifdefined\vhistory
+            Version \vhCurrentVersion\ of \@controlNumber\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+        \else
+            The foregoing draft of \@controlNumber\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+        \fi
+
+    \end{indorsement}
+\fi
+
+\ifdefined\vhistory
+    \clearpage
+    \section*{Revisions}
+    \vhistory
+\fi
+
+\ifdefined\@references
+    \printbibliography[title={References}]
+\fi
 }
