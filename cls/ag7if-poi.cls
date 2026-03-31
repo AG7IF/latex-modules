@@ -130,8 +130,8 @@
 
 % Header
 % Paragraphs
-\renewcommand{\theparagraph}{\makebox[3ex][l]{\arabic{section}.\arabic{subsection}.\arabic{paragraph}.}}
-\titleformat{\paragraph}[runin]{}{\theparagraph}{1em}{\underline}
+\renewcommand{\theparagraph}{\arabic{section}.\arabic{subsection}.\arabic{paragraph}}
+\titleformat{\paragraph}[runin]{}{\theparagraph}{0.5em}{\underline}
 
 % Commands
 \newcommand{\controlNumber}[1]{%
@@ -197,15 +197,16 @@
 
 \section*{Indorsements}
 
-\begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
-
-    \ifdefined\vhistory
+\ifdefined\vhistory
+    \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
         Resolved, that version \vhCurrentVersion\ of \@controlNumber\ be adopted IAW\ \@authority.
-    \else
+    \end{indorsement}
+\else
+    \begin{indorsement}{\@submitterOffice}{\@date}{RECORD}{\@submitter}{}{\@submitterOffice}
         Resolved, that the foregoing draft of\ \@controlNumber\ be adopted IAW\ \@authority.
-    \fi
+    \end{indorsement}
+\fi
 
-\end{indorsement}
 
 \ifdefined\@certifiedDate
     \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
@@ -221,9 +222,25 @@
     \begin{indorsement}{\@recorderOffice}{\fillinblank}{RECORD}{\@recorder}{}{\@recorderOffice}
 
         \ifdefined\vhistory
-            Version \vhCurrentVersion\ of \@controlNumber\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+            Version \vhCurrentVersion\ of \@controlNumber\ was
+
+            \vspace{0.5\baselineskip}
+
+            [~ADOPTED~|~REJECTED~|~AS~AMENDED~] \newline
+
+            \vspace{0.5\baselineskip}
+
+            on\ \fillinblank\  IAW \@authority.
         \else
-            The foregoing draft of \@controlNumber\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
+            The foregoing draft of \@controlNumber\ was
+
+            \vspace{0.5\baselineskip}
+
+            [~ADOPTED~|~REJECTED~|~AS~AMENDED~]
+
+            \vspace{0.5\baselineskip}
+
+            on\ \fillinblank\  IAW \@authority.
         \fi
 
     \end{indorsement}

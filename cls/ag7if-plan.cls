@@ -666,15 +666,15 @@
 \ifdefined\@indorsements
     \section*{Indorsements}
 
-    \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
-
-        \ifdefined\vhistory
+    \ifdefined\vhistory
+        \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
             Resolved, that version \vhCurrentVersion\ of \theplan\ be adopted IAW\ \@authority.
-        \else
+        \end{indorsement}
+    \else
+        \begin{indorsement}{\@submitterOffice}{\@date}{RECORD}{\@submitter}{}{\@submitterOffice}
             Resolved, that the foregoing draft of\ \theplan\ be adopted IAW\ \@authority.
-        \fi
-
-    \end{indorsement}
+        \end{indorsement}
+    \fi
 
     \ifdefined\@certifiedDate
         \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
