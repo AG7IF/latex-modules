@@ -207,7 +207,6 @@
     \end{indorsement}
 \fi
 
-
 \ifdefined\@certifiedDate
     \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
 
@@ -253,6 +252,7 @@
 \fi
 
 \ifdefined\@references
+    \clearpage
     \printbibliography[title={References}]
 \fi
 }

@@ -661,9 +661,8 @@
 }
 
 \AtEndDocument{%
-\clearpage
-
 \ifdefined\@indorsements
+\clearpage
     \section*{Indorsements}
 
     \ifdefined\vhistory
@@ -700,6 +699,7 @@
 \fi
 
 \ifdefined\@references
+\clearpage
     \printbibliography[title={References}]
 \fi
 }
