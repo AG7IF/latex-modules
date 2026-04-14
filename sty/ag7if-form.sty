@@ -2,6 +2,7 @@
 \ProvidesPackage{ag7if-form}
 
 \RequirePackage{hyperref}
+\RequirePackage{xinttools}
 
 \renewcommand{\LayoutTextField}[2]{#2}
 
@@ -41,3 +42,16 @@
     \fi
 }
 
+\newcounter{row}
+
+\newcommand{\iterateRows}[2]{%
+    \xintFor* ##1 in {\xintSeq {1}{#1}}
+    \do
+    { \stepcounter{row}#2 }
+}
+
+\newcommand{\forEachRow}[2]{%
+    \xintFor* ##1 in {#1}
+    \do
+    { \stepcounter{row}#2 }
+}

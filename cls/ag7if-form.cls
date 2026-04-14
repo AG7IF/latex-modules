@@ -1,65 +1,90 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{ag7if-form}
 
-\DeclareOption{quarto}{%
-    \newcommand{\QUARTO}{}
+\newlength{\@paperHeight}
+\newlength{\@paperWidth}
+\newlength{\@topMargin}
+\newlength{\@bottomMargin}
+\newlength{\@leftMargin}
+\newlength{\@rightMargin}
+
+\setlength{\@paperHeight}{11.0in}
+\setlength{\@paperWidth}{8.5in}
+\setlength{\@topMargin}{1.0in}
+\setlength{\@bottomMargin}{1.0in}
+\setlength{\@leftMargin}{0.5in}
+\setlength{\@rightMargin}{0.5in}
+
+\newif\if@landscape
+
+\DeclareOption{landscape}{\@landscapetrue}
+
+\DeclareOption{card-small}{%
+    \setlength{\@paperHeight}{5.0in}
+    \setlength{\@paperWidth}{3.0in}
+    \setlength{\@topMargin}{0.1in}
+    \setlength{\@bottomMargin}{0.1in}
+    \setlength{\@leftMargin}{0.1in}
+    \setlength{\@rightMargin}{0.1in}
 }
 
-\DeclareOption{landscapeForm}{%
-    \newcommand{\LSCAPE}{}
+\DeclareOption{card-medium}{%
+    \setlength{\@paperHeight}{6.0in}
+    \setlength{\@paperWidth}{4.0in}
+    \setlength{\@topMargin}{0.1in}
+    \setlength{\@bottomMargin}{0.1in}
+    \setlength{\@leftMargin}{0.1in}
+    \setlength{\@rightMargin}{0.1in}
 }
+
+\DeclareOption{card-large}{%
+    \setlength{\@paperHeight}{8.0in}
+    \setlength{\@paperWidth}{5.0in}
+    \setlength{\@topMargin}{1.0in}
+    \setlength{\@bottomMargin}{1.0in}
+    \setlength{\@leftMargin}{0.5in}
+    \setlength{\@rightMargin}{0.5in}
+}
+
+\DeclareOption{quarto}{%
+    \setlength{\@paperHeight}{8.5in}
+    \setlength{\@paperWidth}{5.5in}
+    \setlength{\@topMargin}{1.0in}
+    \setlength{\@bottomMargin}{1.0in}
+    \setlength{\@leftMargin}{0.5in}
+    \setlength{\@rightMargin}{0.5in}
+}
+
 \ProcessOptions\relax
 
-\LoadClass[12pt]{article}
+\LoadClass{article}
 
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{tabularx}
 \RequirePackage{ag7if-form}
-\ifdefined\QUARTO
-    \ifdefined\LSCAPE
-        \RequirePackage[
-            paperheight=5.5in,
-            paperwidth=8.5in,
-            top=1.0in,
-            bottom=1.0in,
-            left=0.5in,
-            right=0.5in
-        ]{geometry}
-    \else
-        \RequirePackage[
-            paperheight=8.5in,
-            paperwidth=5.5in,
-            top=1.0in,
-            bottom=1.0in,
-            left=0.5in,
-            right=0.5in
-        ]{geometry}
-    \fi
+
+\if@landscape
+    \RequirePackage[
+        paperheight=\@paperWidth,
+        paperwidth=\@paperHeight,
+        top=\@topMargin,
+        bottom=\@bottomMargin,
+        left=\@leftMargin,
+        right=\@rightMargin
+    ]{geometry}
 \else
-    \ifdefined\LSCAPE
-        \RequirePackage[
-            paperheight=8.5in,
-            paperwidth=11in,
-            top=1.0in,
-            bottom=1.0in,
-            left=0.5in,
-            right=0.5in
-        ]{geometry}
-    \else
-        \RequirePackage[
-            paperheight=11in,
-            paperwidth=8.5in,
-            top=1.0in,
-            bottom=1.0in,
-            left=0.5in,
-            right=0.5in
-        ]{geometry}
-    \fi
-\fi    
+    \RequirePackage[
+        paperheight=\@paperHeight,
+        paperwidth=\@paperWidth,
+        top=\@topMargin,
+        bottom=\@bottomMargin,
+        left=\@leftMargin,
+        right=\@rightMargin
+    ]{geometry}
+\fi
 
 \RequirePackage{fancyhdr}
 \RequirePackage{lastpage}
-\RequirePackage{xinttools}
 
 \renewcommand{\headrulewidth}{0pt}
 \setlength{\headheight}{25pt}
@@ -158,16 +183,3 @@
     \def\@revision{#1}%
 }
 
-\newcounter{row}
-
-\newcommand{\iterateRows}[2]{%
-    \xintFor* ##1 in {\xintSeq {1}{#1}}
-    \do
-    { \stepcounter{row}#2 }
-}
-
-\newcommand{\forEachRow}[2]{%
-    \xintFor* ##1 in {#1}
-    \do
-    { \stepcounter{row}#2 }
-}

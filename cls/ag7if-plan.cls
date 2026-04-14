@@ -14,7 +14,7 @@
 % % - fragord
 % % - splan
 % % - iap
-% % - progchart
+% % - progplan
 % \documentclass[<draft>,<cap>,<vhistory>,<refs>,<ind>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
 %
 % \planNumber{<PLAN_NUMBER>}
@@ -126,8 +126,8 @@
 \DeclareOption{iap}{%
     \newcommand{\@IAP}{}
 }
-\DeclareOption{progchart}{%
-    \newcommand{\@PROGCHART}{}
+\DeclareOption{progplan}{%
+    \newcommand{\@progplan}{}
 }
 \DeclareOption{vhistory}{%
     \newcommand{\vhistory}{}
@@ -177,9 +177,9 @@
 \else\ifdefined\@FRAGORD
 \else\ifdefined\@SPLAN
 \else\ifdefined\@IAP
-\else\ifdefined\@PROGCHART
+\else\ifdefined\@progplan
 \else
-    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, iap, or progchart option}
+    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, iap, or progplan option}
 \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 
 % TODO: Warn/error on multiple plan types
@@ -467,8 +467,8 @@
         SPLAN
     \else\ifdefined\@IAP
         IAP
-    \else\ifdefined\@PROGCHART
-        PROGCHART
+    \else\ifdefined\@progplan
+        PROGPLAN
     \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 
@@ -493,8 +493,8 @@
         SPRINT PLAN
     \else\ifdefined\@IAP
         INCIDENT ACTION PLAN
-    \else\ifdefined\@PROGCHART
-        PROGRAM CHARTER
+    \else\ifdefined\@progplan
+        PROGRAM PLAN
     \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 
@@ -565,11 +565,11 @@
             \hspace{0.25in}
             \includegraphics[height=2in]{\@coverSealD}
         \else\ifdefined\@coverSealC
-            \includegraphics[height=3in]{\@coverSealA}
+            \includegraphics[width=2in]{\@coverSealA}
 
-            \includegraphics[height=3in]{\@coverSealB}
+            \includegraphics[width=2in]{\@coverSealB}
             \hspace{0.25in} 
-            \includegraphics[height=3in]{\@coverSealC}
+            \includegraphics[width=2in]{\@coverSealC}
         \else\ifdefined\@coverSealB
             \includegraphics[height=3in]{\@coverSealA}
             \hspace{0.25in} 
@@ -688,11 +688,27 @@
     \else
         \begin{indorsement}{\@recorderOffice}{\fillinblank}{RECORD}{\@recorder}{}{\@recorderOffice}
 
-            \ifdefined\vhistory
-                Version \vhCurrentVersion\ of \theplan\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
-            \else
-                The foregoing draft of \theplan\ was [~ADOPTED~|~REJECTED~|~AS~AMENDED~] on\ \fillinblank\  IAW \@authority.
-            \fi
+        \ifdefined\vhistory
+            Version \vhCurrentVersion\ of \theplan\ was
+
+            \vspace{0.5\baselineskip}
+
+            [~ADOPTED~|~REJECTED~|~AS~AMENDED~] \newline
+
+            \vspace{0.5\baselineskip}
+
+            on\ \fillinblank\  IAW \@authority.
+        \else
+            The foregoing draft of \theplan\ was
+
+            \vspace{0.5\baselineskip}
+
+            [~ADOPTED~|~REJECTED~|~AS~AMENDED~]
+
+            \vspace{0.5\baselineskip}
+
+            on\ \fillinblank\  IAW \@authority.
+        \fi
 
         \end{indorsement}
     \fi

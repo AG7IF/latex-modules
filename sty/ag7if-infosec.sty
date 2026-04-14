@@ -267,6 +267,14 @@
     \fi
 }
 
+\DeclareRobustCommand{\VsBoxRedact}[1]{%
+    \ifdefined\LvlVerySensitive%
+        #1
+    \else
+        \censorbox{#1}
+    \fi
+}
+
 \DeclareRobustCommand{\VsPortion}[1]{%
     \textcolor{VSColor}{(VS)}~\VsRedact{#1}
 }
@@ -297,6 +305,15 @@
     }
     {#1}
     {\xblackout{#1}}
+}
+
+\DeclareRobustCommand{\SeBoxRedact}[1]{%
+    \ifboolexpr{%
+        test {\ifdef{\LvlVerySensitive}} or 
+        test {\ifdef{\LvlSensitive}}
+    }
+    {#1}
+    {\censorbox{#1}}
 }
 
 \DeclareRobustCommand{\SePortion}[1]{%
@@ -334,6 +351,16 @@
     }
     {#1}
     {\xblackout{#1}}
+}
+
+\DeclareRobustCommand{\SsBoxRedact}[1]{%
+    \ifboolexpr{%
+        test {\ifdef{\LvlVerySensitive}} or
+        test {\ifdef{\LvlSensitive}} or
+        test {\ifdef{\LvlSomewhatSensitive}}
+    }
+    {#1}
+    {\censorbox{#1}}
 }
 
 \WithSuffix\DeclareRobustCommand\SsRedact*[1]{%
