@@ -14,7 +14,7 @@
 % % - fragord
 % % - splan
 % % - iap
-% % - progplan
+% % - gplan
 % \documentclass[<draft>,<cap>,<vhistory>,<refs>,<ind>,<plan_type>,<infosec>,<tlp>]{ag7if-plan}
 %
 % \planNumber{<PLAN_NUMBER>}
@@ -126,8 +126,8 @@
 \DeclareOption{iap}{%
     \newcommand{\@IAP}{}
 }
-\DeclareOption{progplan}{%
-    \newcommand{\@progplan}{}
+\DeclareOption{gplan}{%
+    \newcommand{\@GPLAN}{}
 }
 \DeclareOption{vhistory}{%
     \newcommand{\vhistory}{}
@@ -177,9 +177,9 @@
 \else\ifdefined\@FRAGORD
 \else\ifdefined\@SPLAN
 \else\ifdefined\@IAP
-\else\ifdefined\@progplan
+\else\ifdefined\@GPLAN
 \else
-    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, iap, or progplan option}
+    \ClassError{ag7ifplan}{no plan type defined}{Load the class with stratplan, camplan, qplan, bplan, conplan, oplan, oporf, fragord, splan, iap, or gplan option}
 \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 
 % TODO: Warn/error on multiple plan types
@@ -467,8 +467,8 @@
         SPLAN
     \else\ifdefined\@IAP
         IAP
-    \else\ifdefined\@progplan
-        PROGPLAN
+    \else\ifdefined\@GPLAN
+        GPLAN
     \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 
@@ -493,7 +493,7 @@
         SPRINT PLAN
     \else\ifdefined\@IAP
         INCIDENT ACTION PLAN
-    \else\ifdefined\@progplan
+    \else\ifdefined\@GPLAN
         PROGRAM PLAN
     \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
@@ -662,8 +662,7 @@
 
 \AtEndDocument{%
 \ifdefined\@indorsements
-\clearpage
-    \section*{Indorsements}
+    \chapter*{Indorsements}
 
     \ifdefined\vhistory
         \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}

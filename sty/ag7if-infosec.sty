@@ -39,7 +39,7 @@
 
 % COLORS
 \definecolor{VSColor}{RGB}{128,0,0}
-\definecolor{SColor}{RGB}{255,165,0}
+\definecolor{SeColor}{RGB}{255,165,0}
 \definecolor{SSColor}{RGB}{0,0,128}
 \definecolor{NSColor}{RGB}{0,64,0}
 
@@ -64,7 +64,7 @@
 }
 
 \DeclareRobustCommand{\VerySensitive}{\textcolor{VSColor}{\VerySensitiveText}}
-\DeclareRobustCommand{\Sensitive}{\textcolor{SColor}{\SensitiveText}}
+\DeclareRobustCommand{\Sensitive}{\textcolor{SeColor}{\SensitiveText}}
 \DeclareRobustCommand{\SomewhatSensitive}{\textcolor{SSColor}{\SomewhatSensitiveText}}
 \DeclareRobustCommand{\NotSensitive}{\textcolor{NSColor}{\NotSensitiveText}}
 \DeclareRobustCommand{\InfosecLevel}{%
@@ -174,7 +174,7 @@
 \newcommand{\SensitiveCoverBorder}{%
     \begin{tikzpicture}[remember picture, overlay]
         % page frame
-        \fill [SColor] (current page.north west)
+        \fill [SeColor] (current page.north west)
             rectangle (current page.south east);
         \fill [white]
             ($(current page.north west)+(1in,-1in)$)
@@ -289,7 +289,7 @@
 }
 
 %% Sensitive %%
-\DeclareRobustCommand{\SRef}[2]{%
+\DeclareRobustCommand{\SeRef}[2]{%
     \ifboolexpr{%
         test {\ifdef{\LvlVerySensitive}} or 
         test {\ifdef{\LvlSensitive}}
@@ -298,7 +298,7 @@
     {#1|{#2}|}
 }
 
-\DeclareRobustCommand{\SRedact}[1]{%
+\DeclareRobustCommand{\SeRedact}[1]{%
     \ifboolexpr{%
         test {\ifdef{\LvlVerySensitive}} or 
         test {\ifdef{\LvlSensitive}}
@@ -317,19 +317,15 @@
 }
 
 \DeclareRobustCommand{\SePortion}[1]{%
-    \textcolor{SColor}{(SE)}~\SRedact{#1}
+    \textcolor{SeColor}{(SE)}~\SeRedact{#1}
 }
 
-\DeclareRobustCommand{\SPortion}[1]{%
-    \SePortion{#1}
-}
-
-\newcommand{\SParagraph}[3][]{%
+\newcommand{\SeParagraph}[3][]{%
     \def\temp{#1}
     \ifx\temp\empty
-        \paragraph{#2} \SPortion{#3}
+        \paragraph{#2} \SePortion{#3}
     \else
-        \paragraph{#2}\label{#1} \SPortion{#3}
+        \paragraph{#2}\label{#1} \SePortion{#3}
     \fi
 }
 
