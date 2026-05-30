@@ -138,6 +138,10 @@
     \def\@controlNumber{#1}
 }
 
+\newcommand{\submitted}[1]{%
+    \def\@submitted{#1}
+}
+
 \newcommand{\submitter}[1]{%
     \def\@submitter{#1}
 }
@@ -199,26 +203,37 @@
 
 \ifdefined\vhistory
     \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
+        \vspace{\baselineskip}
+
         Resolved, that version \vhCurrentVersion\ of \@controlNumber\ be adopted IAW\ \@authority.
+
+        \vspace{\baselineskip}
     \end{indorsement}
 \else
-    \begin{indorsement}{\@submitterOffice}{\@date}{RECORD}{\@submitter}{}{\@submitterOffice}
+    \begin{indorsement}{\@submitterOffice}{\@submitted}{RECORD}{\@submitter}{}{\@submitterOffice}
+        \vspace{\baselineskip}
+
         Resolved, that the foregoing draft of\ \@controlNumber\ be adopted IAW\ \@authority.
+
+        \vspace{\baselineskip}
     \end{indorsement}
 \fi
 
 \ifdefined\@certifiedDate
     \begin{indorsement}{\@recorderOffice}{\@certifiedDate}{RECORD}{\@recorder}{}{\@recorderOffice}
+        \vspace{\baselineskip}
 
         \ifdefined\vhistory
             Version \vhCurrentVersion\ of \@controlNumber\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
         \else
             The foregoing draft of \@controlNumber\ was \@certifiedOutcome\ on\ \@certifiedDate\ IAW \@authority.
         \fi
-    
+
+        \vspace{\baselineskip}
     \end{indorsement}
 \else
     \begin{indorsement}{\@recorderOffice}{\fillinblank}{RECORD}{\@recorder}{}{\@recorderOffice}
+        \vspace{\baselineskip}
 
         \ifdefined\vhistory
             Version \vhCurrentVersion\ of \@controlNumber\ was
@@ -242,6 +257,7 @@
             on\ \fillinblank\  IAW \@authority.
         \fi
 
+        \vspace{\baselineskip}
     \end{indorsement}
 \fi
 

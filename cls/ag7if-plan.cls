@@ -34,6 +34,7 @@
 %
 %% If the ind option is selected, the following additional 
 %% parameters need to be included:
+% \submitted{<DATE_OF_SUMISSION>}
 % \submitter{<SUBMITTER_NAME>}
 % \submitterOffice{<SUBMITTER_OFFICE>}
 % \recorder{<RECORDER_NAME>}
@@ -378,6 +379,10 @@
     \def\@draftDate{#1}
 }
 
+\newcommand{\submitted}[1]{%
+    \def\@submitted{#1}
+}
+
 \newcommand{\submitter}[1]{%
     \def\@submitter{#1}
 }
@@ -665,11 +670,11 @@
     \chapter*{Indorsements}
 
     \ifdefined\vhistory
-        \begin{indorsement}{\@submitterOffice}{\vhCurrentDate}{RECORD}{\@submitter}{}{\@submitterOffice}
+        \begin{indorsement}{\@submitterOffice}{\@submitted}{RECORD}{\@submitter}{}{\@submitterOffice}
             Resolved, that version \vhCurrentVersion\ of \theplan\ be adopted IAW\ \@authority.
         \end{indorsement}
     \else
-        \begin{indorsement}{\@submitterOffice}{\@date}{RECORD}{\@submitter}{}{\@submitterOffice}
+        \begin{indorsement}{\@submitterOffice}{\@submitted}{RECORD}{\@submitter}{}{\@submitterOffice}
             Resolved, that the foregoing draft of\ \theplan\ be adopted IAW\ \@authority.
         \end{indorsement}
     \fi
