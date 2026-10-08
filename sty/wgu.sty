@@ -1,0 +1,13 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{wgu}
+
+\ProcessOptions\relax
+
+\RequirePackage{enumitem}
+
+% Environment Definition and Setup
+\newlist{rubric}{enumerate}{7}
+\setlist[rubric, 1]{label=\Alph*.}
+\setlist[rubric, 2]{label=\arabic*.}
+\setlist[rubric, 3]{label=\alph*.}
+\setlist[rubric, 4]{label=\roman*.}

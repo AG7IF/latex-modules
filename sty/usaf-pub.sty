@@ -201,34 +201,6 @@
 \setlist[usafitem, 5]{label=-{}-{}-{}-{}-}
 \setlist[usafitem, 6]{label=-{}-{}-{}-{}-{}-}
 
-% Outlines
-\setlistdepth{7}
-\ifdefined\@SHORT
-    \newlist{outline}{enumerate}{5}
-    \setlist[outline, 1]{label=\arabic*.}
-    \setlist[outline, 2]{label=\alph*)}
-    \setlist[outline, 3]{label=(\arabic*)}
-    \setlist[outline, 4]{label=(\alph*)}
-    \setlist[outline, 5]{label=(\roman*)}
-\else
-    \newlist{outline}{enumerate}{7}
-    \setlist[outline, 1]{label=\Roman*.}
-    \setlist[outline, 2]{label=\Alph*.}
-    \setlist[outline, 3]{label=\arabic*.}
-    \setlist[outline, 4]{label=\alph*)}
-    \setlist[outline, 5]{label=(\arabic*)}
-    \setlist[outline, 6]{label=(\alph*)}
-    \setlist[outline, 7]{label=(\roman*)}
-\fi
-
-\newlist{soutline}{enumerate}{5}
-\setlist[soutline, 1]{label=\arabic*.}
-\setlist[soutline, 2]{label=\alph*)}
-\setlist[soutline, 3]{label=(\arabic*)}
-\setlist[soutline, 4]{label=(\alph*)}
-\setlist[soutline, 5]{label=(\roman*)}
-
-
 \newenvironment{UsafMemo}{%
 	\begin{textblock*}{6.75in}(.75in,1.75in)
 }{%
@@ -334,20 +306,6 @@
     \noindent
     DISTRIBUTION:\\
     #1
-}
-
-%% Other Commands
-\newcommand{\checkboxUnchecked}{%
-    $\square$
-}
-
-\newcommand{\checkBoxChecked}{%
-    \makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}
-}
-
-
-\newcommand{\clitem}[1]{%
-    \item \ifstrequal{#1}{done}{\checkBoxChecked}{\checkboxUnchecked}
 }
 
 \newcommand{\ptitle}[1]{%
