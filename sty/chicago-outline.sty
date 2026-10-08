@@ -1,15 +1,23 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{chicago-outline}
 
-\DeclareOption{short}{%
-    \newcommand{\@SHORT}{}
-}
-
-\ProcessOptions\relax
-
 \RequirePackage{enumitem}
 
 % Environment Definition and Setup
+
+\newcommand{\checkboxUnchecked}{%
+    $\square$
+}
+
+\newcommand{\checkboxChecked}{%
+    \makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}
+}
+
+\newcommand{\clitem}[1]{%
+    \item \ifstrequal{#1}{done}{\checkBoxChecked}{\checkboxUnchecked}
+}
+
+% Outlines
 \setlistdepth{7}
 \ifdefined\@SHORT
     \newlist{outline}{enumerate}{5}
@@ -29,14 +37,9 @@
     \setlist[outline, 7]{label=(\roman*)}
 \fi
 
-\newcommand{\checkboxUnchecked}{%
-    $\square$
-}
-
-\newcommand{\checkboxChecked}{%
-    \makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}
-}
-
-\newcommand{\clitem}[1]{%
-    \item \ifstrequal{#1}{done}{\checkBoxChecked}{\checkboxUnchecked}
-}
+\newlist{soutline}{enumerate}{5}
+\setlist[soutline, 1]{label=\arabic*.}
+\setlist[soutline, 2]{label=\alph*)}
+\setlist[soutline, 3]{label=(\arabic*)}
+\setlist[soutline, 4]{label=(\alph*)}
+\setlist[soutline, 5]{label=(\roman*)}
