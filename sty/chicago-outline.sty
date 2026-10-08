@@ -29,7 +29,14 @@
     \setlist[outline, 7]{label=(\roman*)}
 \fi
 
-% End-User Commands
-\newcommand{\1}[1]{%
-    \ifdefined
+\newcommand{\checkboxUnchecked}{%
+    $\square$
+}
+
+\newcommand{\checkboxChecked}{%
+    \makebox[0pt][l]{$\square$}\raisebox{.15ex}{\hspace{0.1em}$\checkmark$}
+}
+
+\newcommand{\clitem}[1]{%
+    \item \ifstrequal{#1}{done}{\checkBoxChecked}{\checkboxUnchecked}
 }
