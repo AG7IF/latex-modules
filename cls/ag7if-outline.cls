@@ -3,7 +3,7 @@
 
 % Document Setup:
 %
-% \documentclass[<draft>,<short>]{ag7if-outline}
+% \documentclass[<draft>,<short>,<refs>]{ag7if-outline}
 %
 % \controlNumber{<CONTROL_NUMBER>} % Optional
 % \title{<TITLE>}
@@ -33,46 +33,14 @@
 % \end{document}
 
 \DeclareOption{draft}{%
-    \newcommand{\@draft}{}
+    \RequirePackage{draftwatermark}
 }
 \DeclareOption{short}{%
-    \newcommand{\@SHORT}{}
+    \PassOptionsToPackage{short}{chicago-outline}
 }
-\DeclareOption{very-sensitive}{%
-    \newcommand{\@PaperInfosecLvlSet}{}
-    \newcommand{\@PaperLvlVerySensitive}{}
-}
-\DeclareOption{sensitive}{%
-    \newcommand{\@PaperInfosecLvlSet}{}
-    \newcommand{\@PaperLvlSensitive}{}
-}
-\DeclareOption{somewhat-sensitive}{%
-    \newcommand{\@PaperInfosecLvlSet}{}
-    \newcommand{\@PaperLvlSomewhatSensitive}{}
-}
-\DeclareOption{not-sensitive}{%
-    \newcommand{\@PaperInfosecLvlSet}{}
-    \newcommand{\@PaperLvlNotSensitive}{}
-}
-\DeclareOption{tlp-red}{%
-    \newcommand{\@PaperTlpLvlSet}{}
-    \newcommand{\@PaperTlpRed}{}
-}
-\DeclareOption{tlp-amber-strict}{%
-    \newcommand{\@PaperTlpLvlSet}{}
-    \newcommand{\@PaperTlpAmberStrict}{}
-}
-\DeclareOption{tlp-amber}{%
-    \newcommand{\@PaperTlpLvlSet}{}
-    \newcommand{\@PaperTlpAmber}{}
-}
-\DeclareOption{tlp-green}{%
-    \newcommand{\@PaperTlpLvlSet}{}
-    \newcommand{\@PaperTlpGreen}{}
-}
-\DeclareOption{tlp-clear}{%
-    \newcommand{\@PaperTlpLvlSet}{}
-    \newcommand{\@PaperTlpClear}{}
+\DeclareOption{refs}{%
+    \RequirePackage[backend=biber, style=numeric]{biblatex}
+    \addbibresource{references.bib}
 }
 \ProcessOptions\relax
 
@@ -83,51 +51,14 @@
     headheight=15pt,
     footskip=0.5in
 ]{geometry}
-\RequirePackage[backend=biber, style=numeric]{biblatex}
+
 \RequirePackage{chicago-outline}
 \RequirePackage{enumitem}
 \RequirePackage{fancyhdr}
 \RequirePackage{titlesec}
-\ifdefined\@PaperInfosecLvlSet
-    \def\@securityMark{PLACEHOLDER}
-    \ifdefined\@PaperTlpLvlSet
-        \def\@tlpMark{PLACEHOLDER}
-    \fi
-    \RequirePackage{usaf-pub}
-    \ifdefined\@PaperLvlVerySensitive
-        \RequirePackage[very-sensitive]{ag7if-infosec}
-    \else\ifdefined\@PaperLvlSensitive
-        \RequirePackage[sensitive]{ag7if-infosec}
-    \else\ifdefined\@PaperLvlSomewhatSensitive
-        \RequirePackage[somewhat-sensitive]{ag7if-infosec}
-    \else\ifdefined\@PaperLvlNotSensitive
-        \RequirePackage[not-sensitive]{ag7if-infosec}
-    \fi\fi\fi\fi
-    \ifdefined\@PaperTlpRed
-        \RequirePackage[tlp-red]{cert-tlp}
-    \else\ifdefined\@PaperTlpAmberStrict
-        \RequirePackage[tlp-amber-strict]{cert-tlp}
-    \else\ifdefined\@PaperTlpAmber
-        \RequirePackage[tlp-amber]{cert-tlp}
-    \else\ifdefined\@PaperTlpGreen
-        \RequirePackage[tlp-green]{cert-tlp}
-    \else\ifdefined\@PaperTlpClear
-        \RequirePackage[tlp-clear]{cert-tlp}
-    \fi\fi\fi\fi\fi
-    \def\@securityMark{\InfosecLevel}
-    \ifdefined\@PaperTlpLvlSet
-        \def\@tlpMark{\TLPLevel}
-    \fi
-\else
-    \RequirePackage{usaf-pub}
-\fi
-\ifdefined\@draft
-    \RequirePackage{draftwatermark}
-\fi
+\RequirePackage{usaf-pub}
 
 % Class Commmands
-\addbibresource{references.bib}
-
 \renewcommand{\title}[1]{%
     \def\@title{#1}
 }
