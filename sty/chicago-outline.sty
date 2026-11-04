@@ -29,7 +29,7 @@
 
 % Outlines
 \setlistdepth{7}
-\ifundefined{outline}{%
+\unless\IfEnvironmentDefined{outline}{%
     \newlist{outline}{enumerate}{7}
     \setlist[outline, 1]{label=\Roman*.}
     \setlist[outline, 2]{label=\Alph*.}
