@@ -29,7 +29,7 @@
 
 % Outlines
 \setlistdepth{7}
-\unless\IfEnvironmentDefined{outline}{%
+\unless\ifcsname outline\endcsname
     \newlist{outline}{enumerate}{7}
     \setlist[outline, 1]{label=\Roman*.}
     \setlist[outline, 2]{label=\Alph*.}
@@ -45,4 +45,4 @@
     \setlist[soutline, 3]{label=(\arabic*)}
     \setlist[soutline, 4]{label=(\alph*)}
     \setlist[soutline, 5]{label=(\roman*)}
-}
+\fi
