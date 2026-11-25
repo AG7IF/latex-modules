@@ -90,6 +90,28 @@
 \setlength{\headheight}{25pt}
 \setlength{\parindent}{0pt}
 
+\newcommand{\CaseHeader}{%
+\begin{tabularx}{\textwidth}{|l|X|X|l|}
+        \hline
+            \multicolumn{2}{|l|}{Case:}         &
+            Investigator:                       &
+            Initiated:                          \\
+            \FormTextBoxL{0.8in}{caseNumber}    &
+            \FormTextBoxL{2.5in}{caseName}      &
+            \FormTextBoxL{2.0in}{investigator}  &
+            \FormTextBoxR{0.85in}{initiated}    \\
+        \hline
+            \multicolumn{2}{|l|}{Log Number and Type:}  &
+            Organization:                               &
+            Disposed:                                   \\ 
+            \FormTextBoxL{0.8in}{logNo}                 &
+            \FormTextBoxL{2.5in}{logType}               &
+            \FormTextBoxL{2.0in}{custodian}             &
+            \FormTextBoxR{0.85in}{disposed}             \\
+         \hline
+    \end{tabularx}
+}
+
 \newcommand{\IncidentHeader}{%
     \begin{tabularx}{\textwidth}{|p{2.1in}|X|}
         \hline
@@ -182,4 +204,3 @@
 \newcommand{\revision}[1]{%
     \def\@revision{#1}%
 }
-
